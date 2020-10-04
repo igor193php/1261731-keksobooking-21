@@ -1,7 +1,15 @@
 "use strict"
-let randomInteger = Math.floor(Math.random() * 3);
+let getRandomInteger = function(maxNumber, minNumber = 0) {
+  let result = Math.floor(Math.random() * maxNumber);
 
-const auther =
+  if (0 < minNumber) {
+     result = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
+    }
+
+  return result;
+};
+
+const author =
 [
   {
     "userId": '01',
@@ -33,8 +41,9 @@ const auther =
 
 ];
 
-const getPosts = function(avatarNumber)
+let getPosts = function(avatarNumber)
 {
+  let clientWidth = document.querySelector('.map__pins');
   let typeFlat = [
     "palace",
     "flat",
@@ -55,12 +64,32 @@ const getPosts = function(avatarNumber)
     "conditioner"
   ];
 let photos = [
-
+  "http://o0.github.io/assets/images/tokyo/hotel1.jpg",
+  "http://o0.github.io/assets/images/tokyo/hotel2.jpg",
+  "http://o0.github.io/assets/images/tokyo/hotel3.jpg"
 ];
 
   let posts = [];
     for (let i = 0; i < avatarNumber.length; i++)
     {
+      let locationX = getRandomInteger(clientWidth.clientWidth);
+      let locationY = getRandomInteger(630, 130);
+      let rooms = getRandomInteger(7, 1);
+      let getGuests = function(rooms) {
+          let guests = getRandomInteger(4, 1);
+          if (3 < rooms) {
+            guests = getRandomInteger(10, 5);
+          }
+          return guests;
+        };
+      let getItems = function(getRandomInteger, features) {
+        let result = [];
+        for (let i = 0; i <= getRandomInteger; i++) {
+          result[i] = features[i];
+        }
+        return result;
+      };
+
 
         posts[i] =
           {
@@ -69,20 +98,20 @@ let photos = [
             },
             "offer": {
                 "title": "Заголовок предложения " + i,
-                "address": "#",
-                "price": "#",
-                "type": "#",
-                "room": "#",
-                "guests": "#",
-                "checkin": "#",
-                "checkout": "#",
-                "features": "#",
-                "description": "#",
-                "photos": "#"
+                "address": locationX + ", " + locationY,
+                "price":  getRandomInteger(100000),
+                "type": typeFlat[getRandomInteger(3)],
+                "rooms": rooms,
+                "guests": getGuests(rooms),
+                "checkin": checkTime[getRandomInteger(2)],
+                "checkout": checkTime[getRandomInteger(2)],
+                "features": getItems(getRandomInteger(5), features),
+                "description": "О писание объявления " + i,
+                "photos": getItems(getRandomInteger(2), photos)
             },
             "location": {
-                "x": "#",
-                "y": "#"
+                "x": locationX,
+                "y": locationY
             }
           }
 
@@ -90,4 +119,4 @@ let photos = [
 
     return posts;
 };
-console.log(getPosts(auther));
+console.log(getPosts(author));

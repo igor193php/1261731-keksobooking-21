@@ -90,18 +90,37 @@ let photos = [
     return posts;
 };
 
+const posts = getPosts(8);
+
 let classMap = document.querySelector('.map');
 classMap.classList.remove('map--faded');
 
-const makeElement = function(jsObject) {
+const getTemplate = function(idTemplate, classTemplate) {
+  const pinTemplate = document.querySelector(idTemplate).content;
+
+  return pinTemplate.querySelector(classTemplate);
+
 
 };
 
-const createDomItem = function() {
-    
+const pinTemplates = getTemplate('#pin', '.map__pin');
+
+const createDomItem = function(jsObject, template) {
+  let result = [];
+  for (let i = 0; i < jsObject.length; i++) {
+    let clonedElement = template.cloneNode(true);
+
+    clonedElement.src = jsObject[i].author.avatar;
+    clonedElement.alt = jsObject[i].offer.title;
+    result[i] = clonedElement;
+  }
+
+  return result;
 };
 
-for () {
-    createDomItem();
-};
-console.log(getPosts(8));
+const clonedElements = createDomItem(posts, pinTemplates);
+
+
+console.log(clonedElements);
+
+console.log(posts);

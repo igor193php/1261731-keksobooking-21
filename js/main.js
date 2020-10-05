@@ -9,39 +9,9 @@ let getRandomInteger = function(maxNumber, minNumber = 0) {
   return result;
 };
 
-const author =
-[
-  {
-    "userId": '01',
-  },
-  {
-    "userId": '02',
-  },
-  {
-    "userId": '03',
-  },
-  {
-    "userId": '04',
-  },
-  {
-    "userId": '05',
-  },
-  {
-    "userId": '06',
 
-  },
-  {
-    "userId": '07',
 
-  },
-  {
-    "userId": '08',
-
-  }
-
-];
-
-let getPosts = function(avatarNumber)
+let getPosts = function(number)
 {
   let clientWidth = document.querySelector('.map__pins');
   let typeFlat = [
@@ -70,7 +40,7 @@ let photos = [
 ];
 
   let posts = [];
-    for (let i = 0; i < avatarNumber.length; i++)
+    for (let i = 0; i < number; i++)
     {
       let locationX = getRandomInteger(clientWidth.clientWidth);
       let locationY = getRandomInteger(630, 130);
@@ -89,12 +59,12 @@ let photos = [
         }
         return result;
       };
-
+    const numberWithZerro = String(number).padStart(2, '0');
 
         posts[i] =
           {
             "author": {
-                "avatar": 'img/avatars/user' + avatarNumber[i]['userId'] + '.png'
+                "avatar": 'img/avatars/user' + numberWithZerro + '.png'
             },
             "offer": {
                 "title": "Заголовок предложения " + i,
@@ -123,9 +93,15 @@ let photos = [
 let classMap = document.querySelector('.map');
 classMap.classList.remove('map--faded');
 
-const createDomElement = function(jsObject) {
+const makeElement = function(jsObject) {
 
 };
 
+const createDomItem = function() {
+    
+};
 
-//console.log(getPosts(author));
+for () {
+    createDomItem();
+};
+console.log(getPosts(8));

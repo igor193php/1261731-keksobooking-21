@@ -119,4 +119,13 @@ let photos = [
 
     return posts;
 };
-console.log(getPosts(author));
+
+let classMap = document.querySelector('.map');
+classMap.classList.remove('map--faded');
+
+const createDomElement = function(jsObject) {
+
+};
+
+
+//console.log(getPosts(author));

@@ -59,8 +59,12 @@ let photos = [
         }
         return result;
       };
-    const numberWithZerro = String(number).padStart(2, '0');
-
+    
+		    
+      const numberWithZerro = String(i+1).padStart(2, '0');
+	
+    
+	
         posts[i] =
           {
             "author": {
@@ -91,7 +95,7 @@ let photos = [
 };
 
 const posts = getPosts(8);
-const mapOverlay = document.querySelector('.map__overlay');
+const mapOverlay = document.querySelector('.map__pins');
 
 let classMap = document.querySelector('.map');
 classMap.classList.remove('map--faded');
@@ -110,18 +114,26 @@ const createDomItem = function(jsObject, template, parentTeg) {
 
   for (let i = 0; i < jsObject.length; i++) {
     let clonedElement = template.cloneNode(true);
+    let img = clonedElement.querySelector('img');
+    const locationX = jsObject[i].location.x + img.width;
+    const locationY = jsObject[i].location.y + img.height;
+    const stringLocation = "left: " + locationX + "px; " + "top: " + locationY + "px;";
+    const newSrc = jsObject[i].author.avatar;
 
-    clonedElement.src = jsObject[i].author.avatar;
-    clonedElement.alt = jsObject[i].offer.title;
-    return parentTeg.appendChild(clonedElement);
+
+    clonedElement.setAttribute('style', stringLocation);
+    img.src = newSrc;     
+    img.alt = jsObject[i].offer.title;
+    
+   
+    parentTeg.appendChild(clonedElement);
   }
 
 
 };
 
 
-const createListPins = createDomItem(posts, pinTemplates, mapOverlay);
+createDomItem(posts, pinTemplates, mapOverlay);
 
-console.log(createListPins);
 
-console.log(posts);
+

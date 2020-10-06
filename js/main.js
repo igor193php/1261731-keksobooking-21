@@ -91,6 +91,7 @@ let photos = [
 };
 
 const posts = getPosts(8);
+const mapOverlay = document.querySelector('.map__overlay');
 
 let classMap = document.querySelector('.map');
 classMap.classList.remove('map--faded');
@@ -105,22 +106,22 @@ const getTemplate = function(idTemplate, classTemplate) {
 
 const pinTemplates = getTemplate('#pin', '.map__pin');
 
-const createDomItem = function(jsObject, template) {
-  let result = [];
+const createDomItem = function(jsObject, template, parentTeg) {
+
   for (let i = 0; i < jsObject.length; i++) {
     let clonedElement = template.cloneNode(true);
 
     clonedElement.src = jsObject[i].author.avatar;
     clonedElement.alt = jsObject[i].offer.title;
-    result[i] = clonedElement;
+    return parentTeg.appendChild(clonedElement);
   }
 
-  return result;
+
 };
 
-const clonedElements = createDomItem(posts, pinTemplates);
 
+const createListPins = createDomItem(posts, pinTemplates, mapOverlay);
 
-console.log(clonedElements);
+console.log(createListPins);
 
 console.log(posts);

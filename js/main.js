@@ -1,5 +1,11 @@
 "use strict";
 
+const mapPinMainElement = document.querySelector('.map__pin--main');
+const addFormElement = document.querySelector('.ad-form');
+const listAddFormElemnts = addFormElement.children;
+const mapFiltersElement = document.querySelector('.map__filters');
+const listMapFiltersElement = mapFiltersElement.children; 
+
 let getRandomInteger = function (maxNumber, minNumber = 0) {
   let result = Math.floor(Math.random() * maxNumber);
 
@@ -102,8 +108,6 @@ let getPosts = function (number) {
 const posts = getPosts(8);
 const mapOverlayElement = document.querySelector('.map__pins');
 
-let classMapElement = document.querySelector('.map');
-classMapElement.classList.remove('map--faded');
 
 const getTemplate = function (idTemplate, classTemplate) {
   const pinTemplateElement = document.querySelector(idTemplate).content;
@@ -135,4 +139,17 @@ const createDomItem = function (jsObject, template, parentTeg) {
 
 };
 
+for (let i = 0; i < listMapFiltersElement.length; i++) {
+
+listMapFiltersElement[i].setAttribute('disabled', 'disabled');
+}
+
+for (let i = 0; i < listAddFormElemnts.length; i++) {
+listAddFormElemnts[i].setAttribute('disabled', 'disabled'); 
+
+}
+
+mapPinMainElement.addEventListener('mousedown', function () {
+
 createDomItem(posts, pinTemplates, mapOverlayElement);
+});

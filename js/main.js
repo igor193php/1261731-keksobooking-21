@@ -2,9 +2,10 @@
 
 const mapPinMainElement = document.querySelector('.map__pin--main');
 const addFormElement = document.querySelector('.ad-form');
-const listAddFormElemnts = addFormElement.children;
+const listAddFormElements = addFormElement.children;
 const mapFiltersElement = document.querySelector('.map__filters');
-const listMapFiltersElement = mapFiltersElement.children; 
+const listMapFiltersElement = mapFiltersElement.children;
+const mapElement = document.querySelector('.map');
 
 let getRandomInteger = function (maxNumber, minNumber = 0) {
   let result = Math.floor(Math.random() * maxNumber);
@@ -141,15 +142,25 @@ const createDomItem = function (jsObject, template, parentTeg) {
 
 for (let i = 0; i < listMapFiltersElement.length; i++) {
 
-listMapFiltersElement[i].setAttribute('disabled', 'disabled');
+  listMapFiltersElement[i].setAttribute('disabled', 'disabled');
 }
 
-for (let i = 0; i < listAddFormElemnts.length; i++) {
-listAddFormElemnts[i].setAttribute('disabled', 'disabled'); 
+for (let i = 0; i < listAddFormElements.length; i++) {
+  listAddFormElements[i].setAttribute('disabled', 'disabled');
 
 }
 
-mapPinMainElement.addEventListener('mousedown', function () {
+mapPinMainElement.addEventListener('click', function () {
+  createDomItem(posts, pinTemplates, mapOverlayElement);
+  addFormElement.classList.remove('ad-form--disabled');
+  mapElement.classList.remove('map--faded');
+  for (let i = 0; i < listMapFiltersElement.length; i++) {
 
-createDomItem(posts, pinTemplates, mapOverlayElement);
+    listMapFiltersElement[i].removeAttribute('disabled');
+  }
+
+  for (let i = 0; i < listAddFormElements.length; i++) {
+    listAddFormElements[i].removeAttribute('disabled');
+
+  }
 });

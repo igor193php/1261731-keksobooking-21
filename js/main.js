@@ -150,7 +150,7 @@ for (let i = 0; i < listAddFormElements.length; i++) {
 
 }
 
-mapPinMainElement.addEventListener('click', function () {
+const actionDefaultForStart = function() {
   createDomItem(posts, pinTemplates, mapOverlayElement);
   addFormElement.classList.remove('ad-form--disabled');
   mapElement.classList.remove('map--faded');
@@ -163,4 +163,8 @@ mapPinMainElement.addEventListener('click', function () {
     listAddFormElements[i].removeAttribute('disabled');
 
   }
+};
+
+mapPinMainElement.addEventListener('click', function () {
+  actionDefaultForStart();
 });

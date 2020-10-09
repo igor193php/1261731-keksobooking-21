@@ -151,6 +151,7 @@ for (let i = 0; i < listAddFormElements.length; i++) {
 }
 
 const actionDefaultForStart = function() {
+  addFormElement.setAttribute('action', 'https://21.javascript.pages.academy/keksobooking');
   createDomItem(posts, pinTemplates, mapOverlayElement);
   addFormElement.classList.remove('ad-form--disabled');
   mapElement.classList.remove('map--faded');

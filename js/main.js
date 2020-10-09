@@ -168,3 +168,9 @@ const actionDefaultForStart = function() {
 mapPinMainElement.addEventListener('click', function () {
   actionDefaultForStart();
 });
+
+mapPinMainElement.addEventListener('keydown', function (evt) {
+  if(evt.keyCode === 13) {
+ actionDefaultForStart();
+  }
+});

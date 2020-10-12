@@ -152,7 +152,7 @@ for (let i = 0; i < listAddFormElements.length; i++) {
 
 }
 
-const actionDefaultForStart = function() {
+const actionDefaultForStart = function () {
   addFormElement.setAttribute('action', 'https://21.javascript.pages.academy/keksobooking');
   createDomItem(posts, pinTemplates, mapOverlayElement);
   addFormElement.classList.remove('ad-form--disabled');
@@ -173,27 +173,40 @@ mapPinMainElement.addEventListener('click', function () {
 });
 
 mapPinMainElement.addEventListener('keydown', function (evt) {
-  if(evt.keyCode === 13) {
- actionDefaultForStart();
+  if (evt.keyCode === 13) {
+    actionDefaultForStart();
   }
 });
 
-const ROOMS_RATIO_CAPACITY = {
-1: 1,
-2: [1, 2],
-3: [1, 2, 3],
-100: 0
-};
+const NUMBER_OF_ROOMS = [
+  "1",
+  "2",
+  "3",
+  "100"
+];
 
-roomNumberElement.addEventListener('input', function () {
+const NUMBER_CAPACITY = [
+  "0",
+  "1",
+  "2",
+  "3"
+];
+addFormElement.addEventListener('click', function () {
 
-const listRoomNumberElements = roomNumberElement.children;
-const listCapacityElements = capacityElement.children;
 
+  if (roomNumberElement.value === NUMBER_OF_ROOMS[0] && capacityElement.value !== NUMBER_CAPACITY[1]) {
+    capacityElement.setCustomValidity("Заселить можно не более 1 гостя");
+  } else if (roomNumberElement.value === NUMBER_OF_ROOMS[1]) {
+    if (capacityElement.value > NUMBER_CAPACITY[2] || capacityElement.value === NUMBER_CAPACITY[0]) {
+      capacityElement.setCustomValidity("Заселить можно 1 или 2 гостя");
+    }
+  } else if (roomNumberElement.value === NUMBER_OF_ROOMS[2] && capacityElement.value === NUMBER_CAPACITY[0]) {
+    capacityElement.setCustomValidity("Заселить можно от 1 до 3 гостей");
+  } else if (roomNumberElement.value === NUMBER_OF_ROOMS[3] && capacityElement.value !== NUMBER_CAPACITY[0]) {
+    capacityElement.setCustomValidity("Гостей селить нельзя");
+  } else {
+    capacityElement.setCustomValidity('');
+  }
 
-if (roomNumberElement.value === 1)  {
-
-
-}
-  roomNamberElement.reportValidity();
+  capacityElement.reportValidity();
 });

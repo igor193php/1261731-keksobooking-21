@@ -6,7 +6,7 @@ const listAddFormElements = addFormElement.children;
 const mapFiltersElement = document.querySelector('.map__filters');
 const listMapFiltersElement = mapFiltersElement.children;
 const mapElement = document.querySelector('.map');
-const roomNamberElement = document.querySelector('#room_number');
+const roomNumberElement = document.querySelector('#room_number');
 const capacityElement = document.querySelector('#capacity');
 
 let getRandomInteger = function (maxNumber, minNumber = 0) {
@@ -178,8 +178,21 @@ mapPinMainElement.addEventListener('keydown', function (evt) {
   }
 });
 
-roomNamberElement.addEventListener('input', function () {
+const ROOMS_RATIO_CAPACITY = {
+  1: '1',
+  2: {
+  },
+};
+
+roomNumberElement.addEventListener('input', function () {
+
+const listRoomNumberElements = roomNamberElement.children;
+const listCapacityElements = capacityElement.children;
 
 
+if (listRoomNumberElements[0].value === 1)  {
+
+  
+}
   roomNamberElement.reportValidity();
 });

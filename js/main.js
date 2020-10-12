@@ -179,20 +179,21 @@ mapPinMainElement.addEventListener('keydown', function (evt) {
 });
 
 const ROOMS_RATIO_CAPACITY = {
-  1: '1',
-  2: {
-  },
+1: 1,
+2: [1, 2],
+3: [1, 2, 3],
+100: 0
 };
 
 roomNumberElement.addEventListener('input', function () {
 
-const listRoomNumberElements = roomNamberElement.children;
+const listRoomNumberElements = roomNumberElement.children;
 const listCapacityElements = capacityElement.children;
 
 
-if (listRoomNumberElements[0].value === 1)  {
+if (roomNumberElement.value === 1)  {
 
-  
+
 }
   roomNamberElement.reportValidity();
 });

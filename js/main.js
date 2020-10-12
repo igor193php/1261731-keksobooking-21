@@ -6,6 +6,8 @@ const listAddFormElements = addFormElement.children;
 const mapFiltersElement = document.querySelector('.map__filters');
 const listMapFiltersElement = mapFiltersElement.children;
 const mapElement = document.querySelector('.map');
+const roomNamberElement = document.querySelector('#room_number');
+const capacityElement = document.querySelector('#capacity');
 
 let getRandomInteger = function (maxNumber, minNumber = 0) {
   let result = Math.floor(Math.random() * maxNumber);
@@ -174,4 +176,10 @@ mapPinMainElement.addEventListener('keydown', function (evt) {
   if(evt.keyCode === 13) {
  actionDefaultForStart();
   }
+});
+
+roomNamberElement.addEventListener('input', function () {
+
+
+  roomNamberElement.reportValidity();
 });

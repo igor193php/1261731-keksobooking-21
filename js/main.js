@@ -1,6 +1,7 @@
 "use strict";
 
 const mapPinMainElement = document.querySelector('.map__pin--main');
+const mapOverlayElement = document.querySelector('.map__pins');
 const addFormElement = document.querySelector('.ad-form');
 const listAddFormElements = addFormElement.children;
 const mapFiltersElement = document.querySelector('.map__filters');
@@ -8,6 +9,7 @@ const listMapFiltersElement = mapFiltersElement.children;
 const mapElement = document.querySelector('.map');
 const roomNumberElement = document.querySelector('#room_number');
 const capacityElement = document.querySelector('#capacity');
+const adressElement = document.querySelector('#adress');
 
 let getRandomInteger = function (maxNumber, minNumber = 0) {
   let result = Math.floor(Math.random() * maxNumber);
@@ -76,9 +78,7 @@ let getPosts = function (number) {
       return result;
     };
 
-
     const numberWithZerro = String(i + 1).padStart(2, '0');
-
 
     posts[i] =
       {
@@ -109,8 +109,6 @@ let getPosts = function (number) {
 };
 
 const posts = getPosts(8);
-const mapOverlayElement = document.querySelector('.map__pins');
-
 
 const getTemplate = function (idTemplate, classTemplate) {
   const pinTemplateElement = document.querySelector(idTemplate).content;
@@ -131,11 +129,9 @@ const createDomItem = function (jsObject, template, parentTeg) {
     const stringLocation = "left: " + locationX + "px; " + "top: " + locationY + "px;";
     const newSrc = jsObject[i].author.avatar;
 
-
     clonedElement.setAttribute('style', stringLocation);
     imgElement.src = newSrc;
     imgElement.alt = jsObject[i].offer.title;
-
 
     parentTeg.appendChild(clonedElement);
   }
@@ -145,14 +141,15 @@ const createDomItem = function (jsObject, template, parentTeg) {
 for (let i = 0; i < listMapFiltersElement.length; i++) {
 
   listMapFiltersElement[i].setAttribute('disabled', 'disabled');
-}
+};
 
 for (let i = 0; i < listAddFormElements.length; i++) {
   listAddFormElements[i].setAttribute('disabled', 'disabled');
 
-}
+};
 
 const actionDefaultForStart = function () {
+  //adressElement
   addFormElement.setAttribute('action', 'https://21.javascript.pages.academy/keksobooking');
   createDomItem(posts, pinTemplates, mapOverlayElement);
   addFormElement.classList.remove('ad-form--disabled');
@@ -160,12 +157,12 @@ const actionDefaultForStart = function () {
   for (let i = 0; i < listMapFiltersElement.length; i++) {
 
     listMapFiltersElement[i].removeAttribute('disabled');
-  }
+  };
 
   for (let i = 0; i < listAddFormElements.length; i++) {
     listAddFormElements[i].removeAttribute('disabled');
 
-  }
+  };
 };
 
 mapPinMainElement.addEventListener('click', function () {

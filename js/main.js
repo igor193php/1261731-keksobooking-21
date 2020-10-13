@@ -136,3 +136,16 @@ const createDomItem = function (jsObject, template, parentTeg) {
 };
 
 createDomItem(posts, pinTemplates, mapOverlayElement);
+
+const createDomCard = function (jsObject, template, parentTeg) {
+  const mapFiltersContainerElement = document.querySelector('.map__filters-container');
+  template.querySelector('.popup__title').textContent = jsObject[0].offer.title;
+  template.querySelector('.popup__text.popup__text--address').textContent = jsObject[0].offer.address;
+  template.querySelector('.popup__text.popup__text--price').textContent = jsObject[0].offer.price + "р/ночь";
+
+  parentTeg.insertBefore(template, mapFiltersContainerElement);
+};
+
+const cardTemplate = getTemplate('#card', '.map__card');
+createDomCard(posts, cardTemplate, document.querySelector('.map'));
+

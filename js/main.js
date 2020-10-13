@@ -9,7 +9,7 @@ const listMapFiltersElement = mapFiltersElement.children;
 const mapElement = document.querySelector('.map');
 const roomNumberElement = document.querySelector('#room_number');
 const capacityElement = document.querySelector('#capacity');
-const adressElement = document.querySelector('#adress');
+const adressElement = document.querySelector('#address');
 
 let getRandomInteger = function (maxNumber, minNumber = 0) {
   let result = Math.floor(Math.random() * maxNumber);
@@ -149,7 +149,7 @@ for (let i = 0; i < listAddFormElements.length; i++) {
 };
 
 const actionDefaultForStart = function () {
-  //adressElement
+  
   addFormElement.setAttribute('action', 'https://21.javascript.pages.academy/keksobooking');
   createDomItem(posts, pinTemplates, mapOverlayElement);
   addFormElement.classList.remove('ad-form--disabled');
@@ -207,3 +207,7 @@ addFormElement.addEventListener('click', function () {
 
   capacityElement.reportValidity();
 });
+
+
+adressElement.value = mapPinMainElement.offsetLeft + ', ' + mapPinMainElement.offsetTop;
+

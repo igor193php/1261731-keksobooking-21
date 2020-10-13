@@ -137,11 +137,36 @@ const createDomItem = function (jsObject, template, parentTeg) {
 
 createDomItem(posts, pinTemplates, mapOverlayElement);
 
+
 const createDomCard = function (jsObject, template, parentTeg) {
+  const EnglishNameRoomToRussianNameRoom = {
+    flat: "Квартира",
+    bungalow: "Бунгало",
+    house: "Дом",
+    place: "Дворец"
+  };
+  const ItemsPost = {
+    popupTitle: template.querySelector('.popup__title'),
+    textAddress: template.querySelector('.popup__text.popup__text--address'),
+    textPrice: template.querySelector('.popup__text.popup__text--price'),
+    popupType: template.querySelector('.popup__type'),
+    textCapacity: template.querySelector('.popup__text--capacity'),
+    textTime: template.querySelector('.popup__text--time'),
+    popupFeatures: template.querySelector('.popup__text--time'),
+    popupDescription: template.querySelector('.popup__description'),
+    popupPhotos: template.querySelector('.popup__photos')
+  };
+  const {popupTitle, textAddress, textPrice, popupType, textCapacity, textTime, popupFeatures, popupDescription, popupPhotos} = ItemsPost;
   const mapFiltersContainerElement = document.querySelector('.map__filters-container');
-  template.querySelector('.popup__title').textContent = jsObject[0].offer.title;
-  template.querySelector('.popup__text.popup__text--address').textContent = jsObject[0].offer.address;
-  template.querySelector('.popup__text.popup__text--price').textContent = jsObject[0].offer.price + "р/ночь";
+  popupTitle.textContent = jsObject[0].offer.title;
+  textAddress.textContent = jsObject[0].offer.address;
+  textPrice.textContent = jsObject[0].offer.price + "р/ночь";
+  popupType.textContent = EnglishNameRoomToRussianNameRoom[jsObject[0].offer.type];
+  textCapacity.textContent = jsObject[0].offer.rooms + " комнаты для " + jsObject[0].offer.guests;
+  textTime.textContent = "Заезд после " + jsObject[0].offer.checkin + ", выезд до " + jsObject[0].offer.checkout;
+  popupFeatures.textContent = jsObject[0].offer.features;
+  popupDescription.textContent = jsObject[0].offer.description;
+  //popupPhotos
 
   parentTeg.insertBefore(template, mapFiltersContainerElement);
 };

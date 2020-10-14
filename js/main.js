@@ -1,4 +1,19 @@
 "use strict";
+const NUMBER_OF_ROOMS = [
+  "1",
+  "2",
+  "3",
+  "100"
+];
+
+const NUMBER_CAPACITY = [
+  "0",
+  "1",
+  "2",
+  "3"
+];
+
+const NUMBER_KEY_ENTER = 13;
 
 const mapPinMainElement = document.querySelector('.map__pin--main');
 const mapOverlayElement = document.querySelector('.map__pins');
@@ -149,8 +164,7 @@ for (let i = 0; i < listAddFormElements.length; i++) {
 };
 
 const actionDefaultForStart = function () {
-  
-  addFormElement.setAttribute('action', 'https://21.javascript.pages.academy/keksobooking');
+
   createDomItem(posts, pinTemplates, mapOverlayElement);
   addFormElement.classList.remove('ad-form--disabled');
   mapElement.classList.remove('map--faded');
@@ -170,24 +184,11 @@ mapPinMainElement.addEventListener('click', function () {
 });
 
 mapPinMainElement.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 13) {
+  if (evt.keyCode === NUMBER_KEY_ENTER) {
     actionDefaultForStart();
   }
 });
 
-const NUMBER_OF_ROOMS = [
-  "1",
-  "2",
-  "3",
-  "100"
-];
-
-const NUMBER_CAPACITY = [
-  "0",
-  "1",
-  "2",
-  "3"
-];
 addFormElement.addEventListener('click', function () {
 
 

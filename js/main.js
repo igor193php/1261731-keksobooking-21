@@ -154,23 +154,34 @@ const createDomCard = function (jsObject, template, parentTeg) {
     textTime: template.querySelector('.popup__text--time'),
     popupFeatures: template.querySelector('.popup__text--time'),
     popupDescription: template.querySelector('.popup__description'),
-    popupPhotos: template.querySelector('.popup__photos')
+    popupPhotos: template.querySelector('.popup__photos'),
+    popupAvatar: template.querySelector('.popup__avatar')
   };
-  const {popupTitle, textAddress, textPrice, popupType, textCapacity, textTime, popupFeatures, popupDescription, popupPhotos} = ItemsPost;
-  const mapFiltersContainerElement = document.querySelector('.map__filters-container');
-  popupTitle.textContent = jsObject[0].offer.title;
-  textAddress.textContent = jsObject[0].offer.address;
-  textPrice.textContent = jsObject[0].offer.price + "р/ночь";
-  popupType.textContent = EnglishNameRoomToRussianNameRoom[jsObject[0].offer.type];
-  textCapacity.textContent = jsObject[0].offer.rooms + " комнаты для " + jsObject[0].offer.guests;
-  textTime.textContent = "Заезд после " + jsObject[0].offer.checkin + ", выезд до " + jsObject[0].offer.checkout;
-  popupFeatures.textContent = jsObject[0].offer.features;
-  popupDescription.textContent = jsObject[0].offer.description;
-  //popupPhotos
+  const {popupTitle, textAddress, textPrice, popupType, textCapacity, textTime, popupFeatures, popupDescription, popupPhotos, popupAvatar} = ItemsPost;
 
+  const mapFiltersContainerElement = document.querySelector('.map__filters-container');
+  const imgPopupPhotoElement = popupPhotos.querySelector('img');
+  popupTitle.textContent = jsObject.offer.title;
+  textAddress.textContent = jsObject.offer.address;
+  textPrice.textContent = jsObject.offer.price + "р/ночь";
+  popupType.textContent = EnglishNameRoomToRussianNameRoom[jsObject.offer.type];
+  textCapacity.textContent = jsObject.offer.rooms + " комнаты для " + jsObject.offer.guests;
+  textTime.textContent = "Заезд после " + jsObject.offer.checkin + ", выезд до " + jsObject.offer.checkout;
+  popupFeatures.textContent = jsObject.offer.features;
+  popupDescription.textContent = jsObject.offer.description;
+  popupAvatar.src = jsObject.author.avatar;
+  imgPopupPhotoElement.src = jsObject.offer.photos[0];
+
+  if (jsObject.offer.photos.length > 1) {
+    for (let i = 1; i < jsObject.offer.photos.length; i++) {
+      let clonedElement = imgPopupPhotoElement.cloneNode(true);
+      clonedElement.src = jsObject.offer.photos[i];
+      popupPhotos.appendChild(clonedElement);
+    }
+  }
   parentTeg.insertBefore(template, mapFiltersContainerElement);
 };
 
 const cardTemplate = getTemplate('#card', '.map__card');
-createDomCard(posts, cardTemplate, document.querySelector('.map'));
+createDomCard(posts[0], cardTemplate, document.querySelector('.map'));
 

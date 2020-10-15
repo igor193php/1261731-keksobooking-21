@@ -163,10 +163,6 @@ listAddFormElements.forEach(function (value) {
 
 const actionDefaultForStart = function () {
 
-<<<<<<< HEAD
-  addFormElement.setAttribute('action', 'https://21.javascript.pages.academy/keksobooking');
-=======
->>>>>>> 3edec072bf886b7764f893e9653bf5492c9f29e9
   createDomItem(posts, pinTemplates, mapOverlayElement);
   addFormElement.classList.remove('ad-form--disabled');
   mapElement.classList.remove('map--faded');

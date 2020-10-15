@@ -3,9 +3,9 @@
 const mapPinMainElement = document.querySelector('.map__pin--main');
 const mapOverlayElement = document.querySelector('.map__pins');
 const addFormElement = document.querySelector('.ad-form');
-const listAddFormElements = addFormElement.children;
+const listAddFormElements = addFormElement.querySelectorAll('.ad-form-header, .ad-form__element');
 const mapFiltersElement = document.querySelector('.map__filters');
-const listMapFiltersElement = mapFiltersElement.children;
+const listMapFiltersElements = mapFiltersElement.querySelectorAll('.map__filter, .map__features');
 const mapElement = document.querySelector('.map');
 const roomNumberElement = document.querySelector('#room_number');
 const capacityElement = document.querySelector('#capacity');
@@ -138,31 +138,29 @@ const createDomItem = function (jsObject, template, parentTeg) {
 
 };
 
-for (let i = 0; i < listMapFiltersElement.length; i++) {
+listMapFiltersElements.forEach(function (value) {
+  value.setAttribute('disabled', 'disabled');
+});
 
-  listMapFiltersElement[i].setAttribute('disabled', 'disabled');
-};
-
-for (let i = 0; i < listAddFormElements.length; i++) {
-  listAddFormElements[i].setAttribute('disabled', 'disabled');
-
-};
+listAddFormElements.forEach(function (value) {
+  value.setAttribute('disabled', 'disabled');
+});
 
 const actionDefaultForStart = function () {
-  
+
   addFormElement.setAttribute('action', 'https://21.javascript.pages.academy/keksobooking');
   createDomItem(posts, pinTemplates, mapOverlayElement);
   addFormElement.classList.remove('ad-form--disabled');
   mapElement.classList.remove('map--faded');
-  for (let i = 0; i < listMapFiltersElement.length; i++) {
 
-    listMapFiltersElement[i].removeAttribute('disabled');
-  };
+  listMapFiltersElements.forEach(function (value) {
+    value.removeAttribute('disabled');
+  });
 
-  for (let i = 0; i < listAddFormElements.length; i++) {
-    listAddFormElements[i].removeAttribute('disabled');
+  listAddFormElements.forEach(function (value) {
+    value.removeAttribute('disabled');
+  });
 
-  };
 };
 
 mapPinMainElement.addEventListener('click', function () {

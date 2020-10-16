@@ -1,5 +1,7 @@
 "use strict";
 
+const mapPinElement = document.querySelector('.map__pins');
+
 let getRandomInteger = function (maxNumber, minNumber = 0) {
   let result = Math.floor(Math.random() * maxNumber);
 
@@ -182,6 +184,16 @@ const createDomCard = function (jsObject, template, parentTeg) {
   parentTeg.insertBefore(template, mapFiltersContainerElement);
 };
 
+
 const cardTemplate = getTemplate('#card', '.map__card');
-createDomCard(posts[0], cardTemplate, document.querySelector('.map'));
+
+mapPinElement.addEventListener('click', function (evt) {
+  const srcImgElement = evt.target; console.log(srcImgElement);
+  posts.forEach(function (value) {
+    if (value.author.avatar === srcImgElement.src) {
+      createDomCard(value, cardTemplate, document.querySelector('.map'));
+    }
+  });
+});
+
 

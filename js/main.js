@@ -12,6 +12,9 @@ let getRandomInteger = function (maxNumber, minNumber = 0) {
   return result;
 };
 
+const KEY_ENTER = 13;
+const KEY_ESC = 27;
+
 const TYPE_FLATS = [
   "palace",
   "flat",
@@ -182,18 +185,53 @@ const createDomCard = function (jsObject, template, parentTeg) {
     }
   }
   parentTeg.insertBefore(template, mapFiltersContainerElement);
+
 };
 
 
 const cardTemplate = getTemplate('#card', '.map__card');
 
-mapPinElement.addEventListener('click', function (evt) {
-  const srcImgElement = evt.target; console.log(srcImgElement);
-  posts.forEach(function (value) {
-    if (value.author.avatar === srcImgElement.src) {
-      createDomCard(value, cardTemplate, document.querySelector('.map'));
+const closePopupWindow = function () {
+  const buttonClosePopupElement = document.querySelector('.popup__close');
+  const popupCardElement = document.querySelector('.map__card.popup');
+  buttonClosePopupElement.addEventListener('click', function () {
+    popupCardElement.hidden = true;
+  });
+  buttonClosePopupElement.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === KEY_ESC) {
+      popupCardElement.hidden = true;
     }
   });
+};
+
+mapPinElement.addEventListener('click', function (evt) {
+  if (evt.target.matches('.map__pin')) {
+    const imgElement = evt.target.querySelector('img');
+    const pinLocationX = evt.target.offsetLeft - imgElement.clientWidth;
+    const pinLocationY = evt.target.offsetTop - imgElement.clientHeight;
+
+    posts.forEach(function (value) {
+      if (value.location.y === pinLocationY && value.location.x === pinLocationX) {
+        createDomCard(value, cardTemplate, document.querySelector('.map'));
+        closePopupWindow();
+        document.querySelector('.map__card.popup').hidden = false;
+      }
+    });
+  }
 });
 
+mapPinElement.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === KEY_ENTER) {
+    const imgElement = evt.target.querySelector('img');
+    const pinLocationX = evt.target.offsetLeft - imgElement.clientWidth;
+    const pinLocationY = evt.target.offsetTop - imgElement.clientHeight;
 
+    posts.forEach(function (value) {
+      if (value.location.y === pinLocationY && value.location.x === pinLocationX) {
+        createDomCard(value, cardTemplate, document.querySelector('.map'));
+        closePopupWindow();
+        document.querySelector('.map__card.popup').hidden = false;
+      }
+    });
+  }
+});

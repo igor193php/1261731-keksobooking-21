@@ -27,6 +27,7 @@ const MIX_GUESTS_OVER_THREE = 5;
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
+const MAX_PRICE_ROOM = 1000000;
 
 const TYPE_FLATS = [
   "palace",
@@ -252,18 +253,18 @@ addFormElement.addEventListener('click', function (evt) {
 
   if (evt.target.matches('#price')) {
     pricePostElement.setAttribute('required', '');
-    if (typePostElement.value === "bungalow" && pricePostElement.value < 0) {
+    if (typePostElement.value === "bungalow" && pricePostElement.value < MIN_COSTS_FOR_TYPE_ROOMS["bungalow"]) {
       pricePostElement.setCustomValidity("Цена за бунгало должна быть не меньше 0");
-    } else if (typePostElement.value === "flat" && pricePostElement.value < 1000) {
-      pricePostElement.setCustomValidity("Цена за квартиру должна быть не меньше " + 1000 + " рублей за ночь");
-    } else if (typePostElement.value === "house" && pricePostElement.value < 5000) {
-      pricePostElement.setCustomValidity("Цена за дом должна быть не меньше " + 5000 + " рублей за ночь");
-    } else if (typePostElement.value === "palace" && pricePostElement.value < 10000) {
-      pricePostElement.setCustomValidity("Цена за дом должна быть не меньше " + 10000 + " рублей за ночь");
+    } else if (typePostElement.value === "flat" && pricePostElement.value < MIN_COSTS_FOR_TYPE_ROOMS["flat"]) {
+      pricePostElement.setCustomValidity("Цена за квартиру должна быть не меньше " + MIN_COSTS_FOR_TYPE_ROOMS["flat"] + " рублей за ночь");
+    } else if (typePostElement.value === "house" && pricePostElement.value < MIN_COSTS_FOR_TYPE_ROOMS["house"]) {
+      pricePostElement.setCustomValidity("Цена за дом должна быть не меньше " + MIN_COSTS_FOR_TYPE_ROOMS["house"] + " рублей за ночь");
+    } else if (typePostElement.value === "palace" && pricePostElement.value < MIN_COSTS_FOR_TYPE_ROOMS["palace"]) {
+      pricePostElement.setCustomValidity("Цена за дом должна быть не меньше " + MIN_COSTS_FOR_TYPE_ROOMS["palace"] + " рублей за ночь");
     } else if (!checkNumberIsNumeric(pricePostElement.value)) {
       pricePostElement.setCustomValidity("Введите целое положительное число");
-    } else if (pricePostElement.value > 1000000) {
-      pricePostElement.setCustomValidity("Цена превышает максимальный размер в " + 1000000 + " рублей");
+    } else if (pricePostElement.value > MAX_PRICE_ROOM) {
+      pricePostElement.setCustomValidity("Цена превышает максимальный размер в " + MAX_PRICE_ROOM + " рублей");
     } else {
       pricePostElement.setCustomValidity('');
     }

@@ -81,6 +81,9 @@ const titlePostElement = document.querySelector('#title');
 const typePostElement = document.querySelector('#type');
 const pricePostElement = document.querySelector('#price');
 const avatarUserElement = document.querySelector('#avatar');
+const timeInElement = document.querySelector('#timein');
+const timeOutElement = document.querySelector('#timeout');
+const imagesElement = document.querySelector('#images');
 
 const checkNumberIsNumeric = function (value) {
   return /^\d+$/.test(value);
@@ -275,9 +278,19 @@ addFormElement.addEventListener('click', function (evt) {
     avatarUserElement.setAttribute('accept', 'image/png, image/jpeg');
   }
 
+  if (evt.target.matches('#timein')) {
+    timeOutElement.value = evt.target.value;
+  }
+
+  if (evt.target.matches('#timeout')) {
+    timeInElement.value = evt.target.value;
+  }
+
+  if (evt.target.matches('#images')) {
+    imagesElement.setAttribute('accept', 'image/png, image/jpeg');
+  }
 
 });
-
 
 adressElement.value = mapPinMainElement.offsetLeft + ', ' + mapPinMainElement.offsetTop;
 
@@ -369,3 +382,4 @@ mapOverlayElement.addEventListener('keydown', function (evt) {
   }
 
 });
+

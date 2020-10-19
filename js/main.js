@@ -80,6 +80,7 @@ const adressElement = document.querySelector('#address');
 const titlePostElement = document.querySelector('#title');
 const typePostElement = document.querySelector('#type');
 const pricePostElement = document.querySelector('#price');
+const avatarUserElement = document.querySelector('#avatar');
 
 const checkNumberIsNumeric = function (value) {
   return /^\d+$/.test(value);
@@ -269,6 +270,11 @@ addFormElement.addEventListener('click', function (evt) {
   if (evt.target.matches('#type')) {
     pricePostElement.setAttribute('placeholder', MIN_COSTS_FOR_TYPE_ROOMS[evt.target.value]);
   }
+
+  if (evt.target.matches('#avatar')) {
+    avatarUserElement.setAttribute('accept', 'image/png, image/jpeg');
+  }
+
 
 });
 

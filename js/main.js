@@ -88,7 +88,7 @@ const imagesElement = document.querySelector('#images');
 
 const checkNumberIsNumeric = function (value) {
   return /^\d+$/.test(value);
-}
+};
 
 let getRandomInteger = function (maxNumber, minNumber = 0) {
   let result = Math.floor(Math.random() * maxNumber);

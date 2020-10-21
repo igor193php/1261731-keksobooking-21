@@ -1,4 +1,38 @@
 "use strict";
+(function () {
+const MIN_COSTS_FOR_TYPE_ROOMS = {
+  flat: 1000,
+  bungalow: 0,
+  house: 5000,
+  palace: 10000
+};
+
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
+const MAX_PRICE_ROOM = 1000000;
+
+const NUMBER_OF_ROOMS = [
+  "1",
+  "2",
+  "3",
+  "100"
+];
+
+const NUMBER_CAPACITY = [
+  "0",
+  "1",
+  "2",
+  "3"
+];
+
+const roomNumberElement = document.querySelector('#room_number');
+const capacityElement = document.querySelector('#capacity');
+const titlePostElement = document.querySelector('#title');
+const typePostElement = document.querySelector('#type');
+const avatarUserElement = document.querySelector('#avatar');
+const timeInElement = document.querySelector('#timein');
+const timeOutElement = document.querySelector('#timeout');
+const imagesElement = document.querySelector('#images');
 
 const checkNumberIsNumeric = function (value) {
   return /^\d+$/.test(value);
@@ -75,3 +109,4 @@ addFormElement.addEventListener('click', function (evt) {
   }
 
 });
+})();

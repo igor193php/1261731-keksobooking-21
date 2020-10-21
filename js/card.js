@@ -1,4 +1,13 @@
 "use strict";
+(function () {
+const ENGLISH_NAME_ROOM_TO_RUSSIAN_NAME_ROOM = {
+  flat: "Квартира",
+  bungalow: "Бунгало",
+  house: "Дом",
+  place: "Дворец"
+};
+
+
 const createDomCard = function (jsObject, template, parentTeg) {
 
   const ItemsPost = {
@@ -87,4 +96,4 @@ mapOverlayElement.addEventListener('keydown', function (evt) {
   }
 
 });
-
+})();

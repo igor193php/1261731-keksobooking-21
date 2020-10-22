@@ -23,7 +23,7 @@
       popupPhotos: template.querySelector('.popup__photos'),
       popupAvatar: template.querySelector('.popup__avatar')
     };
-    const { popupTitle, textAddress, textPrice, popupType, textCapacity, textTime, popupFeatures, popupDescription, popupPhotos, popupAvatar } = ItemsPost;
+    const {popupTitle, textAddress, textPrice, popupType, textCapacity, textTime, popupFeatures, popupDescription, popupPhotos, popupAvatar} = ItemsPost;
 
     const mapFiltersContainerElement = document.querySelector('.map__filters-container');
     const imgPopupPhotoElement = popupPhotos.querySelector('img');

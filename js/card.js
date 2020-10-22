@@ -23,7 +23,7 @@
       popupPhotos: template.querySelector('.popup__photos'),
       popupAvatar: template.querySelector('.popup__avatar')
     };
-    const {popupTitle, textAddress, textPrice, popupType, textCapacity, textTime, popupFeatures, popupDescription, popupPhotos, popupAvatar} = ItemsPost;
+    const { popupTitle, textAddress, textPrice, popupType, textCapacity, textTime, popupFeatures, popupDescription, popupPhotos, popupAvatar } = ItemsPost;
 
     const mapFiltersContainerElement = document.querySelector('.map__filters-container');
     const imgPopupPhotoElement = popupPhotos.querySelector('img');
@@ -82,7 +82,7 @@
   });
 
   mapOverlayElement.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.keyboard.isEnterPressed) { 
+    if (evt.keyCode === window.keyboard.isEnterPressed) {
       const imgElement = evt.target.querySelector('img');
       const pinLocationX = evt.target.offsetLeft - imgElement.clientWidth;
       const pinLocationY = evt.target.offsetTop - imgElement.clientHeight;

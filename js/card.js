@@ -59,7 +59,7 @@
       popupCardElement.hidden = true;
     });
     mapOverlayElement.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === KEY_ESC) {
+      if (evt.keyCode === window.keyboard.isEscPressed) {
         popupCardElement.hidden = true;
       }
     });
@@ -82,7 +82,7 @@
   });
 
   mapOverlayElement.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === NUMBER_KEY_ENTER) {
+    if (evt.keyCode === window.keyboard.isEnterPressed) { 
       const imgElement = evt.target.querySelector('img');
       const pinLocationX = evt.target.offsetLeft - imgElement.clientWidth;
       const pinLocationY = evt.target.offsetTop - imgElement.clientHeight;

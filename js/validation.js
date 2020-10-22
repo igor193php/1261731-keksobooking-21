@@ -25,6 +25,8 @@ const NUMBER_CAPACITY = [
   "3"
 ];
 
+const pricePostElement = window.pin.pricePostElement; 
+
 const roomNumberElement = document.querySelector('#room_number');
 const capacityElement = document.querySelector('#capacity');
 const titlePostElement = document.querySelector('#title');

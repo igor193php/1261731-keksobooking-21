@@ -74,7 +74,7 @@
   });
 
   mapPinMainElement.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === NUMBER_KEY_ENTER) {
+    if (evt.keyCode === window.keyboard.isEnterPressed) {
       actionDefaultForStart();
     }
   });
@@ -82,6 +82,7 @@
 
   window.pin = {
     mapOverlayElement: mapOverlayElement,
-    addFormElement: addFormElement
+    addFormElement: addFormElement,
+    pricePostElement: pricePostElement
   };
 })();

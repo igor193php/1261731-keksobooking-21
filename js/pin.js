@@ -1,7 +1,5 @@
 "use strict";
 (function () {
-  const NUMBER_KEY_ENTER = 13;
-  const KEY_ESC = 27;
 
   const MIN_COSTS_FOR_TYPE_ROOMS = {
     flat: 1000,
@@ -83,6 +81,7 @@
   adressElement.value = mapPinMainElement.offsetLeft + ', ' + mapPinMainElement.offsetTop;
 
   window.pin = {
-    mapOverlayElement: mapOverlayElement
+    mapOverlayElement: mapOverlayElement,
+    addFormElement: addFormElement
   };
 })();

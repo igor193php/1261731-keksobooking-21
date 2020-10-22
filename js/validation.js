@@ -38,7 +38,7 @@ const checkNumberIsNumeric = function (value) {
   return /^\d+$/.test(value);
 };
 
-addFormElement.addEventListener('click', function (evt) {
+window.pin.addFormElement.addEventListener('click', function (evt) {
   if (evt.target.matches('#capacity')) {
     if (roomNumberElement.value === NUMBER_OF_ROOMS[0] && capacityElement.value !== NUMBER_CAPACITY[1]) {
       capacityElement.setCustomValidity("Заселить можно не более 1 гостя");

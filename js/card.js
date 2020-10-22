@@ -1,5 +1,6 @@
 "use strict";
 (function () {
+
   const ENGLISH_NAME_ROOM_TO_RUSSIAN_NAME_ROOM = {
     flat: "Квартира",
     bungalow: "Бунгало",

@@ -1,4 +1,5 @@
 "use strict";
+(function () {
 const NUMBER_OF_ROOMS = [
   "1",
   "2",
@@ -384,3 +385,8 @@ mapOverlayElement.addEventListener('keydown', function (evt) {
 
 });
 
+window.main = {
+  mapPinMainElement: mapPinMainElement
+};
+
+})();

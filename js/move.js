@@ -1,6 +1,8 @@
 "use strict";
+
 (function () {
   const mapPinMainElement = window.main.mapPinMainElement;
+
   mapPinMainElement.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
 
@@ -8,11 +10,11 @@
 x: evt.clientX,
 y: evt.clientY
   };
-
+  console.log(startCoords.y);
   const onMouseMove = function (moveEvt) {
     moveEvt.preventDefault();
-
-    let shift = {
+    console.log(startCoords.y);
+    const shift = {
       x: startCoords.x - moveEvt.clientX,
       y: startCoords.y - moveEvt.clientY
     };

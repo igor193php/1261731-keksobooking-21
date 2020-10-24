@@ -386,7 +386,8 @@ mapOverlayElement.addEventListener('keydown', function (evt) {
 });
 
 window.main = {
-  mapPinMainElement: mapPinMainElement
+  mapPinMainElement: mapPinMainElement,
+  mapOverlayElement: mapOverlayElement
 };
 
 })();

@@ -1,8 +1,10 @@
 "use strict";
 
 (function () {
-  const dbConnection = function (url) {
+  const load = function (url, data, onError) {
     const xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+
     xhr.addEventListener('load', function () {
       console.log(xhr.status + ' ' + xhr.statusText);
     });
@@ -10,5 +12,7 @@
     xhr.send();
   };
 
-
+window.load = {
+  load: load
+};
 })();

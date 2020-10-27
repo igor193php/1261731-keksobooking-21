@@ -75,7 +75,7 @@
 
       if (minNumber > 0) {
         result = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
-      } 
+      }
 
       return result;
     };
@@ -104,7 +104,7 @@
       const numberWithZerro = String(i + 1).padStart(2, '0');
 
       const getRandomElementFromArray = function (arrayItems, numberForChoice) {
-        const randomNumber = getRandomInteger(numberForChoice);       
+        const randomNumber = getRandomInteger(numberForChoice);
         return arrayItems[randomNumber];
       };
 
@@ -137,6 +137,6 @@
   };
 
   window.data = {
-    posts: getPosts(8)
+    posts: getPosts
   };
 })();

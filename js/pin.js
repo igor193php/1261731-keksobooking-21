@@ -24,7 +24,22 @@
 
   const createDomItem = function (jsObject, template, parentTeg) {
 
-    for (let i = 0; i < jsObject.length; i++) {
+    jsObject.forEach(function (value) {
+      let clonedElement = template.cloneNode(true);
+      let imgElement = clonedElement.querySelector('img');
+      const locationX = value.location.x + imgElement.width;
+      const locationY = value.location.y + imgElement.height;
+      const stringLocation = "left: " + locationX + "px; " + "top: " + locationY + "px;";
+      const newSrc = value.author.avatar;
+
+      clonedElement.setAttribute('style', stringLocation);
+      imgElement.src = newSrc;
+      imgElement.alt = value.offer.title;
+
+      parentTeg.appendChild(clonedElement);
+    });
+
+    /*for (let i = 0; i < jsObject.length; i++) {
       let clonedElement = template.cloneNode(true);
       let imgElement = clonedElement.querySelector('img');
       const locationX = jsObject[i].location.x + imgElement.width;
@@ -38,6 +53,7 @@
 
       parentTeg.appendChild(clonedElement);
     }
+    */
 
   };
 

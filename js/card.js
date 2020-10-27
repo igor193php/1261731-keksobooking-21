@@ -24,7 +24,7 @@
       popupPhotosElement: template.querySelector('.popup__photos'),
       popupAvatarElement: template.querySelector('.popup__avatar')
     };
-    const {popupTitleElement, textAddressElement, textPriceElement, popupTypeElement, textCapacityElement, textTimeElement, popupFeaturesElement, popupDescriptionElement, popupPhotosElement, popupAvatarElement} = ItemsPost;
+    const { popupTitleElement, textAddressElement, textPriceElement, popupTypeElement, textCapacityElement, textTimeElement, popupFeaturesElement, popupDescriptionElement, popupPhotosElement, popupAvatarElement } = ItemsPost;
 
     const mapFiltersContainerElement = document.querySelector('.map__filters-container');
     const imgPopupPhotoElement = popupPhotosElement.querySelector('img');
@@ -40,11 +40,12 @@
     imgPopupPhotoElement.src = jsObject.offer.photos[0];
 
     if (jsObject.offer.photos.length > 1) {
-      for (let i = 1; i < jsObject.offer.photos.length; i++) {
+      jsObject.offer.photos.forEach(function (value) {
         let clonedElement = imgPopupPhotoElement.cloneNode(true);
-        clonedElement.src = jsObject.offer.photos[i];
+        clonedElement.src = value;
         popupPhotosElement.appendChild(clonedElement);
-      }
+      });
+
     }
     parentTeg.insertBefore(template, mapFiltersContainerElement);
 
@@ -66,19 +67,24 @@
     });
   };
 
+  const creatCard = function (pinLocationX, pinLocationY) {
+
+    window.data.posts.forEach(function (value) {
+      if (value.location.y === pinLocationY && value.location.x === pinLocationX) {
+        createDomCard(value, cardTemplate, document.querySelector('.map'));
+        closePopupWindow();
+        document.querySelector('.map__card.popup').hidden = false;
+      }
+    });
+
+  }
+
   mapOverlayElement.addEventListener('click', function (evt) {
     if (evt.target.matches('img')) {
       const imgElement = evt.target;
       const pinLocationX = evt.target.parentElement.offsetLeft - imgElement.clientWidth;
       const pinLocationY = evt.target.parentElement.offsetTop - imgElement.clientHeight;
-
-      window.data.posts.forEach(function (value) {
-        if (value.location.y === pinLocationY && value.location.x === pinLocationX) {
-          createDomCard(value, cardTemplate, document.querySelector('.map'));
-          closePopupWindow();
-          document.querySelector('.map__card.popup').hidden = false;
-        }
-      });
+      creatCard(pinLocationX, pinLocationY);
     }
   });
 
@@ -87,14 +93,7 @@
       const imgElement = evt.target.querySelector('img');
       const pinLocationX = evt.target.offsetLeft - imgElement.clientWidth;
       const pinLocationY = evt.target.offsetTop - imgElement.clientHeight;
-
-      window.data.posts.forEach(function (value) {
-        if (value.location.y === pinLocationY && value.location.x === pinLocationX) {
-          createDomCard(value, cardTemplate, document.querySelector('.map'));
-          closePopupWindow();
-          document.querySelector('.map__card.popup').hidden = false;
-        }
-      });
+      creatCard(pinLocationX, pinLocationY);
     }
 
   });

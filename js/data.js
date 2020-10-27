@@ -1,6 +1,28 @@
 "use strict";
 
 (function () {
+
+  const MOCK_TITLES = [
+    "pulvinar sapien et",
+    "posuere sollicitudin aliquam",
+    "arcu cursus vitae congue mauris",
+    "sagittis purus sit amet volutpat",
+    "hendrerit dolor magna",
+    "viverra vitae congue eu consequat",
+    "nunc sed id semper risus",
+    "quis imperdiet massa"
+  ];
+
+  const MOCK_DESCRIPTIONS = [
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore",
+    "din nibh sit amet commodo nulla facilisi nullam. Pellentesque diam volutpat commodo sed egestas eg",
+    "cus luctus accumsan tortor. Amet purus gravida quis blandit turpis cursus in hac habitasse.",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore",
+    "vitae semper quis lectus nulla at. Vel orci porta non pulvinar. Enim nunc faucibus a ",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ali",
+    "gittis eu volutpat odio facilisis mauris. Malesuada fames ac turpis egestas integer eget al",
+    "Metus vulputate eu scelerisque felis imperdiet proin fermentum. Ipsum consequat nisl vel pretium."
+  ];
   const PHOTOS = [
     "http://o0.github.io/assets/images/tokyo/hotel1.jpg",
     "http://o0.github.io/assets/images/tokyo/hotel2.jpg",
@@ -37,6 +59,11 @@
   const MIN_GUESTS = 1;
   const MAX_GUESTS_OVER_THREE = 10;
   const MIX_GUESTS_OVER_THREE = 5;
+  const MOCK_PRICE = 30000;
+  const NUMBER_CHOICE_TIME = 2;
+  const NUMBER_CHOICE_TYPE_FLAT = 3;
+  const NUMBER_CHOICE_FEATURE = 5;
+  const NUMBER_CHOICE_PHOTO = 2;
 
   let getPosts = function (number) {
 
@@ -48,7 +75,8 @@
 
       if (minNumber > 0) {
         result = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
-      }
+      } 
+
       return result;
     };
 
@@ -75,23 +103,28 @@
 
       const numberWithZerro = String(i + 1).padStart(2, '0');
 
+      const getRandomElementFromArray = function (arrayItems, numberForChoice) {
+        const randomNumber = getRandomInteger(numberForChoice);       
+        return arrayItems[randomNumber];
+      };
+
       posts[i] =
         {
           "author": {
             "avatar": 'img/avatars/user' + numberWithZerro + '.png'
           },
           "offer": {
-            "title": "Заголовок предложения " + i,
+            "title": getRandomElementFromArray(MOCK_TITLES, number),
             "address": locationX + ", " + locationY,
-            "price": getRandomInteger(100000),
-            "type": TYPE_FLATS[getRandomInteger(3)],
+            "price": getRandomInteger(MOCK_PRICE),
+            "type": getRandomElementFromArray(TYPE_FLATS, NUMBER_CHOICE_TYPE_FLAT),
             "rooms": rooms,
             "guests": getGuests(rooms),
-            "checkin": CHECK_TIMES[getRandomInteger(2)],
-            "checkout": CHECK_TIMES[getRandomInteger(2)],
-            "features": getItems(getRandomInteger(5), FEATURES),
-            "description": "О писание объявления " + i,
-            "photos": getItems(getRandomInteger(2), PHOTOS)
+            "checkin": getRandomElementFromArray(CHECK_TIMES, NUMBER_CHOICE_TIME),
+            "checkout": getRandomElementFromArray(CHECK_TIMES, NUMBER_CHOICE_TIME),
+            "features": getRandomElementFromArray(FEATURES, NUMBER_CHOICE_FEATURE),
+            "description": getRandomElementFromArray(MOCK_DESCRIPTIONS, number),
+            "photos": getItems(getRandomInteger(NUMBER_CHOICE_PHOTO), PHOTOS)
           },
           "location": {
             "x": locationX,

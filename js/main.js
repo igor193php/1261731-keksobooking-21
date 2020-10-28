@@ -2,12 +2,11 @@
 
 (function () {
 
-  window.settings.defaultSettings(window.settings.startSettings);
-
   const posts = window.data.posts(8);
-  const pinTemplates = window.getTemplate.template('#pin', '.map__pin');
+  const pinTemplates = window.template.getTemplate('#pin', '.map__pin');
   const mapOverlayElement = document.querySelector('.map__pins');
-  createDomItem(posts, pinTemplates, mapOverlayElement);
 
+  const pins = window.pin.createDomItem;
+  window.settings.defaultSettings(window.settings.startSettings(pins(posts, pinTemplates, mapOverlayElement)));
 
 })();

@@ -7,7 +7,7 @@
     return pinTemplateElement.querySelector(classTemplate);
 
   };
-  window.getTemplate = {
-    template: getTemplate
+  window.template = {
+    getTemplate: getTemplate
   };
 })();

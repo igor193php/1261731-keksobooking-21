@@ -20,6 +20,6 @@
   };
 
   window.pin = {
-    pin: createDomItem
+    createDomItem: createDomItem
   };
 })();

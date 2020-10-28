@@ -42,8 +42,8 @@
     });
   };
 
-  const actionDefaultForStart = function () {
-
+  const actionDefaultForStart = function (pins) {
+pins();
     const mapElement = document.querySelector('.map');
 
     addFormElement.classList.remove('ad-form--disabled');

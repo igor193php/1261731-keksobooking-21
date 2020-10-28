@@ -1,16 +1,17 @@
 "use strict";
 (function () {
 
-  const ENGLISH_NAME_ROOM_TO_RUSSIAN_NAME_ROOM = {
-    flat: "Квартира",
-    bungalow: "Бунгало",
-    house: "Дом",
-    place: "Дворец"
-  };
-
-
   const mapOverlayElement = window.pin.mapOverlayElement;
+  const cardTemplate = window.getTemplate.template('#card', '.map__card');
+
   const createDomCard = function (jsObject, template, parentTeg) {
+
+    const ENGLISH_NAME_ROOM_TO_RUSSIAN_NAME_ROOM = {
+      flat: "Квартира",
+      bungalow: "Бунгало",
+      house: "Дом",
+      place: "Дворец"
+    };
 
     const ItemsPost = {
       popupTitleElement: template.querySelector('.popup__title'),
@@ -24,7 +25,7 @@
       popupPhotosElement: template.querySelector('.popup__photos'),
       popupAvatarElement: template.querySelector('.popup__avatar')
     };
-    const { popupTitleElement, textAddressElement, textPriceElement, popupTypeElement, textCapacityElement, textTimeElement, popupFeaturesElement, popupDescriptionElement, popupPhotosElement, popupAvatarElement } = ItemsPost;
+    const {popupTitleElement, textAddressElement, textPriceElement, popupTypeElement, textCapacityElement, textTimeElement, popupFeaturesElement, popupDescriptionElement, popupPhotosElement, popupAvatarElement} = ItemsPost;
 
     const mapFiltersContainerElement = document.querySelector('.map__filters-container');
     const imgPopupPhotoElement = popupPhotosElement.querySelector('img');
@@ -52,11 +53,11 @@
   };
 
 
-  const cardTemplate = window.getTemplate.template('#card', '.map__card');
-
   const closePopupWindow = function () {
+
     const buttonClosePopupElement = document.querySelector('.popup__close');
     const popupCardElement = document.querySelector('.map__card.popup');
+
     buttonClosePopupElement.addEventListener('click', function () {
       popupCardElement.hidden = true;
     });
@@ -97,4 +98,8 @@
     }
 
   });
+
+  window.card = {
+    card: creat
+  };
 })();

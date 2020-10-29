@@ -47,6 +47,8 @@
     parentTeg.insertBefore(template, mapFiltersContainerElement);
   };
 
+
+
   window.card = {
     createDomCard: createDomCard
   };

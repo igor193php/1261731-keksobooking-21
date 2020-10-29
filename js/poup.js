@@ -1,12 +1,12 @@
 "use sctrict";
+(function () {
+const showPopupWindow = function (posts, mapOverlayElement) {
 
-const showPopupWindow = function (card, mapOverlayElement) {
-
-  const creatCard = function (pinLocationX, pinLocationY) {
-    window.data.posts.forEach(function (value) {
+  const creatCard = function (posts, pinLocationX, pinLocationY) {
+    posts.forEach(function (value) {
       if (value.location.y === pinLocationY && value.location.x === pinLocationX) {
-        createDomCard(value, cardTemplate, document.querySelector('.map'));
-        closePopupWindow();
+        //createDomCard(value, cardTemplate, document.querySelector('.map'));
+        //closePopupWindow();
         document.querySelector('.map__card.popup').hidden = false;
       }
     });
@@ -17,6 +17,7 @@ const showPopupWindow = function (card, mapOverlayElement) {
       const imgElement = evt.target;
       const pinLocationX = evt.target.parentElement.offsetLeft - imgElement.clientWidth;
       const pinLocationY = evt.target.parentElement.offsetTop - imgElement.clientHeight;
+      closePopupWindow();
       creatCard(pinLocationX, pinLocationY);
     }
   });
@@ -26,7 +27,9 @@ const showPopupWindow = function (card, mapOverlayElement) {
       const imgElement = evt.target.querySelector('img');
       const pinLocationX = evt.target.offsetLeft - imgElement.clientWidth;
       const pinLocationY = evt.target.offsetTop - imgElement.clientHeight;
+      closePopupWindow();
       creatCard(pinLocationX, pinLocationY);
+
     }
   });
 };
@@ -45,3 +48,8 @@ const closePopupWindow = function (mapOverlayElement) {
     }
   });
 };
+
+window.poup = {
+  closePopupWindow: closePopupWindow
+};
+})();

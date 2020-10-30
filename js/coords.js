@@ -35,7 +35,7 @@
     // });
   };
 
-  window.location = {
+  window.coords = {
     getChoicedPost: getChoicedPost,
     getLocationChoicePin: getLocationChoicePin
   };

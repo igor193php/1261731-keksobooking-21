@@ -7,7 +7,7 @@
   const listAddFormElements = addFormElement.querySelectorAll('.ad-form-header, .ad-form__element');
   const adressElement = document.querySelector('#address');
 
-  const setDefaultSettings = function (startSettings) {
+  const setDefaultSettings = function () {
 
     const MIN_COSTS_FOR_TYPE_ROOMS = {
       flat: 1000,
@@ -29,17 +29,9 @@
     listAddFormElements.forEach(function (value) {
       value.setAttribute('disabled', 'disabled');
     });
+
     adressElement.value = mapPinMainElement.offsetLeft + ', ' + mapPinMainElement.offsetTop;
 
-    mapPinMainElement.addEventListener('click', function () {
-      startSettings();
-    });
-
-    mapPinMainElement.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === window.keyboard.isEnterPressed) {
-        startSettings();
-      }
-    });
   };
 
   const actionDefaultForStart = function () {

@@ -1,13 +1,25 @@
 "use strict";
 
 (function () {
+  const mapPinMainElement = document.querySelector('.map__pin--main');
+
+  window.settings.defaultSettings();
+
+  mapPinMainElement.addEventListener('click', function () {
+    window.settings.startSettings();
+  });
+
+  mapPinMainElement.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === window.keyboard.isEnterPressed) {
+      window.settings.startSettings();
+    }
+  });
 
   const posts = window.data.posts(8);
   const pinTemplates = window.template.getTemplate('#pin', '.map__pin');
   const mapOverlayElement = document.querySelector('.map__pins');
   window.pin.createDomItem(posts, pinTemplates, mapOverlayElement);
 
-  window.settings.defaultSettings(window.settings.startSettings());
 
   const cardTemplate = window.template.getTemplate('#card', '.map__card');
   const locationPin = window.coords.getLocationChoicePin(mapOverlayElement);

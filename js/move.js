@@ -5,8 +5,6 @@
   const onMouseMove = function (moveEvt, startCoords, mapPinMainElement) {
     moveEvt.preventDefault();
 
-
-
     const shift = {
       x: startCoords.x - moveEvt.clientX,
       y: startCoords.y - moveEvt.clientY

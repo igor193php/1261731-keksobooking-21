@@ -53,6 +53,7 @@
 
   window.settings = {
     defaultSettings: setDefaultSettings,
-    startSettings: actionDefaultForStart
+    startSettings: actionDefaultForStart,
+    address: adressElement
   };
 })();

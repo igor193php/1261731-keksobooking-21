@@ -92,7 +92,8 @@
     }
   });
 
-  window.main ={
-    mapPinMainElement: mapPinMainElement
+  window.main = {
+    mapPinMainElement: mapPinMainElement,
+    mapOverlayElement: mapOverlayElement
   };
 })();

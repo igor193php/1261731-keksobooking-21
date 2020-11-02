@@ -92,20 +92,7 @@
     }
   });
 
-  mapPinMainElement.addEventListener('mousedown', function (evt) {
-    evt.preventDefault();
-    let startCoords = {
-      x: evt.clientX,
-      y: evt.clientY
-    };
-
-    document.addEventListener('mousemove', function (moveEvt) {
-      window.move.onMouseMove(moveEvt, startCoords, mapPinMainElement);
-    });
-    document.addEventListener('mouseup', function (upEvt) {
-      window.move.onMouseUp(upEvt);
-    });
-
-  });
-
+  window.main ={
+    mapPinMainElement: mapPinMainElement
+  };
 })();

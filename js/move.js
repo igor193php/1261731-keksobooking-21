@@ -1,8 +1,19 @@
 "use strict";
 
 (function () {
+  const mapPinMainElement = document.querySelector('.map__pin--main');
+  //const mapPinMainElement = window.main.mapPinMainElement;
 
-  const onMouseMove = function (moveEvt, startCoords, mapPinMainElement) {
+
+  mapPinMainElement.addEventListener('mousedown', function (evt) {
+    evt.preventDefault();
+    let startCoords = {
+      x: evt.clientX,
+      y: evt.clientY
+    };
+
+
+  const onMouseMove = function (moveEvt) {
     moveEvt.preventDefault();
 
     const shift = {
@@ -28,8 +39,9 @@
     document.removeEventListener('mouseup', onMouseUp);
   };
 
-  window.move = {
-    onMouseMove: onMouseMove,
-    onMouseUp: onMouseUp
-  };
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+
+});
+
 })();

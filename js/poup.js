@@ -17,7 +17,18 @@
     });
   };
 
+  const onError = function (error) {
+    const mapOverlayElement = document.querySelector('.map__pins');
+    const errorTemplate = window.template.getTemplate('#error', '.error');
+    const clonedElement = errorTemplate.cloneNode(true);
+    const errorElement = clonedElement.querySelector('p');
+    errorElement.textContent = error;
+    mapOverlayElement.appendChild(clonedElement);
+
+  };
+
   window.poup = {
-    closePopupWindow: closePopupWindow
+    closePopupWindow: closePopupWindow,
+    onError: onError
   };
 })();

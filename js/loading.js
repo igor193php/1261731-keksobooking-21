@@ -1,11 +1,5 @@
 "use strict";
 (function () {
-const onError = function (error) {
-  const mapOverlayElement = document.querySelector('.map__pins');
-  const errorTemplate = getTemplate('#error', 'error');
-  const clonedElement = errorTemplate.cloneNode(true);
-  mapOverlayElement.appendChild(clonedElement);
-};
 
   const load = function (url, onSuccess, onError) {
     const xhr = new XMLHttpRequest();
@@ -13,12 +7,11 @@ const onError = function (error) {
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      let error;
+      let error; console.log(xhr.status);
       switch (xhr.status) {
         case 200:
-          const posts = xhr.response;
+          onSuccess(xhr.response);
           break;
-
         case 400:
           error = 'Неверный запрос';
           break;

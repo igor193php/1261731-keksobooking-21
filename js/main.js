@@ -2,7 +2,6 @@
 
 (function () {
 
-  const posts = window.data.posts(8);
   const mapPinMainElement = document.querySelector('.map__pin--main');
   const mapOverlayElement = document.querySelector('.map__pins');
   const pinTemplates = window.template.getTemplate('#pin', '.map__pin');
@@ -15,51 +14,56 @@
   const imagesElement = document.querySelector('#images');
   const pricePostElement = document.querySelector('#price');
 
-  window.settings.defaultSettings();
+  const onSucces = function (posts) {
+    window.settings.defaultSettings();
 
-  mapPinMainElement.addEventListener('click', function () {
-    window.settings.startSettings();
-    window.pin.createDomItem(posts, pinTemplates, mapOverlayElement);
-  });
-
-  mapPinMainElement.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.keyboard.isEnterPressed) {
+    mapPinMainElement.addEventListener('click', function () {
       window.settings.startSettings();
       window.pin.createDomItem(posts, pinTemplates, mapOverlayElement);
-    }
-  });
+    });
 
-  mapOverlayElement.addEventListener('click', function (evt) {
-    if (evt.target.matches('img')) {
-      const imgElement = evt.target;
-      const pinLocationX = evt.target.parentElement.offsetLeft - imgElement.clientWidth;
-      const pinLocationY = evt.target.parentElement.offsetTop - imgElement.clientHeight;
+    mapPinMainElement.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === window.keyboard.isEnterPressed) {
+        window.settings.startSettings();
+        window.pin.createDomItem(posts, pinTemplates, mapOverlayElement);
+      }
+    });
 
-      posts.forEach(function (value) {
-        if (value.location.y === pinLocationY && value.location.x === pinLocationX) {
-          window.card.createDomCard(value, cardTemplate, mapElement);
-          window.poup.closePopupWindow(mapOverlayElement);
-          document.querySelector('.map__card.popup').hidden = false;
-        }
-      });
-    }
-  });
+    mapOverlayElement.addEventListener('click', function (evt) {
+      if (evt.target.matches('img')) {
+        const imgElement = evt.target;
+        const pinLocationX = evt.target.parentElement.offsetLeft - imgElement.clientWidth;
+        const pinLocationY = evt.target.parentElement.offsetTop - imgElement.clientHeight;
 
-  mapOverlayElement.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.keyboard.isEnterPressed) {
-      const imgElement = evt.target.querySelector('img');
-      const pinLocationX = evt.target.offsetLeft - imgElement.clientWidth;
-      const pinLocationY = evt.target.offsetTop - imgElement.clientHeight;
+        posts.forEach(function (value) {
+          if (value.location.y === pinLocationY && value.location.x === pinLocationX) {
+            window.card.createDomCard(value, cardTemplate, mapElement);
+            window.poup.closePopupWindow(mapOverlayElement);
+            document.querySelector('.map__card.popup').hidden = false;
+          }
+        });
+      }
+    });
 
-      posts.forEach(function (value) {
-        if (value.location.y === pinLocationY && value.location.x === pinLocationX) {
-          window.card.createDomCard(value, cardTemplate, mapElement);
-          window.poup.closePopupWindow(mapOverlayElement);
-          document.querySelector('.map__card.popup').hidden = false;
-        }
-      });
-    }
-  });
+    mapOverlayElement.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === window.keyboard.isEnterPressed) {
+        const imgElement = evt.target.querySelector('img');
+        const pinLocationX = evt.target.offsetLeft - imgElement.clientWidth;
+        const pinLocationY = evt.target.offsetTop - imgElement.clientHeight;
+
+        posts.forEach(function (value) {
+          if (value.location.y === pinLocationY && value.location.x === pinLocationX) {
+            window.card.createDomCard(value, cardTemplate, mapElement);
+            window.poup.closePopupWindow(mapOverlayElement);
+            document.querySelector('.map__card.popup').hidden = false;
+          }
+        });
+      }
+    });
+
+  };
+
+  window.loading.load("https://21.javascript.pages.academy/keksobooking/data", onSucces, window.poup.onError);
 
   addFormElement.addEventListener('click', function (evt) {
     if (evt.target.matches('#capacity')) {

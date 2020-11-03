@@ -1,5 +1,12 @@
 "use strict";
 (function () {
+const onError = function (error) {
+  const mapOverlayElement = document.querySelector('.map__pins');
+  const errorTemplate = getTemplate('#error', 'error');
+  const clonedElement = errorTemplate.cloneNode(true);
+  mapOverlayElement.appendChild(clonedElement);
+};
+
   const load = function (url, onSuccess, onError) {
     const xhr = new XMLHttpRequest();
 

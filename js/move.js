@@ -5,9 +5,9 @@
   const MAX_LOCATION_Y = 630;
   const MIN_LOCATION_Y = 130;
   const MAX_LOCATION_X = mapOverlayElement.clientWidth;
-  const MIN_LOCATION_X = 0;
-  const CORRECT_LOCATION_X = 30
+  const MIN_LOCATION_X = 0; 
   const mapPinMainElement = window.main.mapPinMainElement;
+  const imgElement = mapPinMainElement.querySelector('img');
   const adressElement = window.settings.address;
 
 
@@ -39,15 +39,15 @@
       let LeftCoordX = offsetLeftStylMapPin - shift.x;
 
       if (TopCoordY < MIN_LOCATION_Y) {
-        TopCoordY = MIN_LOCATION_Y;
+        TopCoordY = MIN_LOCATION_Y + imgElement.height;
       } else if (TopCoordY > MAX_LOCATION_Y) {
-        TopCoordY = MAX_LOCATION_Y;
+        TopCoordY = MAX_LOCATION_Y + imgElement.height;
       }
 
       if (LeftCoordX < MIN_LOCATION_X) {
-        LeftCoordX = MIN_LOCATION_X;
+        LeftCoordX = MIN_LOCATION_X + imgElement.width;
       } else if (LeftCoordX > MAX_LOCATION_X) {
-        LeftCoordX = MAX_LOCATION_X;
+        LeftCoordX = MAX_LOCATION_X + imgElement.width;
       }
 
       mapPinMainElement.setAttribute("style", "left: " + LeftCoordX + "px; " + "top: " + TopCoordY + "px;");

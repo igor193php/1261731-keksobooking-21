@@ -5,7 +5,7 @@
   const MAX_LOCATION_Y = 630;
   const MIN_LOCATION_Y = 130;
   const MAX_LOCATION_X = mapOverlayElement.clientWidth;
-  const MIN_LOCATION_X = 0; 
+  const MIN_LOCATION_X = 0;
   const mapPinMainElement = window.main.mapPinMainElement;
   const imgElement = mapPinMainElement.querySelector('img');
   const adressElement = window.settings.address;

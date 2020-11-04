@@ -24,8 +24,7 @@
     "2",
     "3"
   ];
-
-  const pricePostElement = window.pin.pricePostElement;
+  const pricePostElement = document.querySelector('#price');
 
   const roomNumberElement = document.querySelector('#room_number');
   const capacityElement = document.querySelector('#capacity');
@@ -88,6 +87,7 @@
 
   window.validation = {
     minCostsForTypeRooms: MIN_COSTS_FOR_TYPE_ROOMS,
+    pricePostElement: pricePostElement,
     validateCapacity: validateCapacity,
     validateTitle: validateTitle,
     validatePrice: validatePrice

@@ -12,9 +12,11 @@
   const timeInElement = document.querySelector('#timein');
   const timeOutElement = document.querySelector('#timeout');
   const imagesElement = document.querySelector('#images');
-  const pricePostElement = document.querySelector('#price');
+  const pricePostElement = window.validation.pricePostElement;
+
 
   const onSucces = function (posts) {
+
     window.settings.defaultSettings();
 
     mapPinMainElement.addEventListener('click', function () {
@@ -63,6 +65,7 @@
 
   };
 
+
   window.loading.load("https://21.javascript.pages.academy/keksobooking/data", onSucces, window.poup.onError);
 
   addFormElement.addEventListener('click', function (evt) {
@@ -96,8 +99,16 @@
     }
   });
 
+
+  addFormElement.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.upload.upload(new FormData(addFormElement), window.poup.getSuccessMessegeAfterSendForm, window.poup.onError);
+
+  });
+
   window.main = {
     mapPinMainElement: mapPinMainElement,
-    mapOverlayElement: mapOverlayElement
+    mapOverlayElement: mapOverlayElement,
+    addFormElement: addFormElement
   };
 })();

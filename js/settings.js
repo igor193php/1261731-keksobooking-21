@@ -40,7 +40,7 @@
 
     addFormElement.classList.remove('ad-form--disabled');
     mapElement.classList.remove('map--faded');
-    adressElement.setAttribute('disabled', 'disabled');
+    adressElement.setAttribute('readonly', 'readonly');
 
     listMapFiltersElements.forEach(function (value) {
       value.removeAttribute('disabled');

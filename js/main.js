@@ -95,4 +95,9 @@
       imagesElement.setAttribute('accept', 'image/png, image/jpeg');
     }
   });
+
+  window.main = {
+    mapPinMainElement: mapPinMainElement,
+    mapOverlayElement: mapOverlayElement
+  };
 })();

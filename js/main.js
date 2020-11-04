@@ -20,11 +20,13 @@
     window.settings.defaultSettings();
 
     mapPinMainElement.addEventListener('click', function () {
+
       window.settings.startSettings();
       window.pin.createDomItem(posts, pinTemplates, mapOverlayElement);
     });
 
     mapPinMainElement.addEventListener('keydown', function (evt) {
+
       if (evt.keyCode === window.keyboard.isEnterPressed) {
         window.settings.startSettings();
         window.pin.createDomItem(posts, pinTemplates, mapOverlayElement);
@@ -32,6 +34,7 @@
     });
 
     mapOverlayElement.addEventListener('click', function (evt) {
+
       if (evt.target.matches('img')) {
         const imgElement = evt.target;
         const pinLocationX = evt.target.parentElement.offsetLeft - imgElement.clientWidth;
@@ -48,6 +51,7 @@
     });
 
     mapOverlayElement.addEventListener('keydown', function (evt) {
+
       if (evt.keyCode === window.keyboard.isEnterPressed) {
         const imgElement = evt.target.querySelector('img');
         const pinLocationX = evt.target.offsetLeft - imgElement.clientWidth;
@@ -69,6 +73,7 @@
   window.loading.load("https://21.javascript.pages.academy/keksobooking/data", onSucces, window.poup.onError);
 
   addFormElement.addEventListener('click', function (evt) {
+
     if (evt.target.matches('#capacity')) {
       window.validation.validateCapacity();
     }
@@ -109,6 +114,7 @@
   window.main = {
     mapPinMainElement: mapPinMainElement,
     mapOverlayElement: mapOverlayElement,
-    addFormElement: addFormElement
+    addFormElement: addFormElement,
+    onSucces: onSucces
   };
 })();

@@ -46,6 +46,7 @@
     const clonedElement = successTemplate.cloneNode(true);
     mainTegElement.appendChild(clonedElement);
     window.main.addFormElement.reset();
+    window.loading.load("https://21.javascript.pages.academy/keksobooking/data", window.main.onSucces, window.poup.onError);
 
     const successPoupElement = document.querySelector('.success');
 

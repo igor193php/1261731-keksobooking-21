@@ -15,6 +15,7 @@
   const pricePostElement = document.querySelector('#price');
 
   const onSucces = function (posts) {
+
     window.settings.defaultSettings();
 
     mapPinMainElement.addEventListener('click', function () {

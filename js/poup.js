@@ -41,12 +41,14 @@
   };
 
   const getSuccessMessegeAfterSendForm = function () {
+    window.loading.load("https://21.javascript.pages.academy/keksobooking/data", window.main.onSuccess, window.poup.onError);
+
     const mainTegElement = document.querySelector('main');
     const successTemplate = window.template.getTemplate('#success', '.success');
     const clonedElement = successTemplate.cloneNode(true);
     mainTegElement.appendChild(clonedElement);
     window.main.addFormElement.reset();
-    window.loading.load("https://21.javascript.pages.academy/keksobooking/data", window.main.onSucces, window.poup.onError);
+
 
     const successPoupElement = document.querySelector('.success');
 
@@ -54,6 +56,7 @@
       successPoupElement.hidden = true;
     });
     document.addEventListener('keydown', function (evt) {
+      evt.preventDefault();
       if (evt.keyCode === window.keyboard.isEscPressed) {
         successPoupElement.hidden = true;
       }

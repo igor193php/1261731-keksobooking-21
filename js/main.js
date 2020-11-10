@@ -15,7 +15,7 @@
   const pricePostElement = window.validation.pricePostElement;
 
 
-  const onSucces = function (posts) {
+  const onSuccess = function (posts) {
 
     window.settings.defaultSettings();
 
@@ -70,7 +70,7 @@
   };
 
 
-  window.loading.load("https://21.javascript.pages.academy/keksobooking/data", onSucces, window.poup.onError);
+  window.loading.load("https://21.javascript.pages.academy/keksobooking/data", onSuccess, window.poup.onError);
 
   addFormElement.addEventListener('click', function (evt) {
 
@@ -108,13 +108,17 @@
   addFormElement.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.upload.upload(new FormData(addFormElement), window.poup.getSuccessMessegeAfterSendForm, window.poup.onError);
+  });
 
+  addFormElement.addEventListener('reset', function (evt) {
+    addFormElement.reset();
+    evt.preventDefault();
   });
 
   window.main = {
     mapPinMainElement: mapPinMainElement,
     mapOverlayElement: mapOverlayElement,
     addFormElement: addFormElement,
-    onSucces: onSucces
+    onSuccess: onSuccess
   };
 })();

@@ -2,8 +2,6 @@
 
 (function () {
 
-  const URL_DATA = "https://21.javascript.pages.academy/keksobooking/data";
-
   const mapPinMainElement = document.querySelector('.map__pin--main');
   const mapOverlayElement = document.querySelector('.map__pins');
   const pinTemplates = window.template.getTemplate('#pin', '.map__pin');
@@ -15,7 +13,6 @@
   const timeOutElement = document.querySelector('#timeout');
   const imagesElement = document.querySelector('#images');
   const pricePostElement = window.validation.pricePostElement;
-
 
   const onSuccess = function (posts) {
 
@@ -71,8 +68,7 @@
 
   };
 
-
-  window.loading.load(URL_DATA, onSuccess, window.poup.onError);
+  window.loading.getConnection(onSuccess, window.poup.onError);
 
   addFormElement.addEventListener('click', function (evt) {
 
@@ -109,16 +105,15 @@
 
   addFormElement.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.upload.upload(new FormData(addFormElement), window.poup.getSuccessMessegeAfterSendForm, window.poup.onError);
+    window.loading.getConnection(window.poup.getSuccessMessegeAfterSendForm, window.poup.onError, new FormData(addFormElement));
   });
 
   addFormElement.addEventListener('reset', function (evt) {
-    addFormElement.reset();
     evt.preventDefault();
+    window.validation.recetAddForm();
   });
 
   window.main = {
-    urlData: URL_DATA,
     mapPinMainElement: mapPinMainElement,
     mapOverlayElement: mapOverlayElement,
     addFormElement: addFormElement,

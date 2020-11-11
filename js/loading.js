@@ -7,19 +7,25 @@
     NOT_FOUND: 404,
     NOT_USER: 401
   };
-
+  const URL_DATA = "https://21.javascript.pages.academy/keksobooking/data";
+  const URL = 'https://21.javascript.pages.academy/keksobooking';
   const TIME_OUT = 10000;
 
-  const load = function (url, onSuccess, onError) {
-    const xhr = new XMLHttpRequest();
 
+  const getConnection = function (onSuccess, onError, data = '') {
+
+    const xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
       let error;
       switch (xhr.status) {
         case StatusCodeHttp.OK:
-          onSuccess(xhr.response);
+          if (data === '') {
+            onSuccess(xhr.response);
+          } else {
+            onSuccess();
+          }
           break;
         case StatusCodeHttp.BAD_REQUEST:
           error = 'Неверный запрос';
@@ -48,14 +54,18 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = TIME_OUT; // 10s
-
-    xhr.open('GET', url);
-    xhr.send();
+    xhr.timeout = TIME_OUT; //
+    if (data === '') {
+      xhr.open('GET', URL_DATA);
+      xhr.send();
+    } else {
+      xhr.open('POST', URL);
+      xhr.send(data);
+    }
 
   };
 
   window.loading = {
-    load: load
+    getConnection: getConnection
   };
 })();

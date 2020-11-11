@@ -41,7 +41,7 @@
   };
 
   const getSuccessMessegeAfterSendForm = function () {
-    window.loading.load(window.main.urlData, window.main.onSuccess, window.poup.onError);
+    window.loading.getConnection(window.main.onSuccess, window.poup.onError);
 
     const mainTegElement = document.querySelector('main');
     const successTemplate = window.template.getTemplate('#success', '.success');

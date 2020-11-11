@@ -42,7 +42,6 @@
       }
     });
 
-    window.settings.defaultSettings();
 
     mapPinMainElement.addEventListener('click', function () {
 

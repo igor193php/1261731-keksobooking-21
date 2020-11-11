@@ -18,17 +18,55 @@
   };
 
   const onError = function (error) {
-    const mapOverlayElement = document.querySelector('.map__pins');
+    const mainTegElement = document.querySelector('main');
     const errorTemplate = window.template.getTemplate('#error', '.error');
     const clonedElement = errorTemplate.cloneNode(true);
     const errorElement = clonedElement.querySelector('p');
     errorElement.textContent = error;
-    mapOverlayElement.appendChild(clonedElement);
+    mainTegElement.appendChild(clonedElement);
+
+    const errorPoupElement = document.querySelector('.error');
+
+    document.addEventListener('click', function (evt) {
+      evt.preventDefault();
+      errorPoupElement.hidden = true;
+    });
+    document.addEventListener('keydown', function (evt) {
+      evt.preventDefault();
+      if (evt.keyCode === window.keyboard.isEscPressed) {
+        errorPoupElement.hidden = true;
+      }
+    });
+
+  };
+
+  const getSuccessMessegeAfterSendForm = function () {
+    window.loading.getConnection(window.main.onSuccess, window.poup.onError);
+
+    const mainTegElement = document.querySelector('main');
+    const successTemplate = window.template.getTemplate('#success', '.success');
+    const clonedElement = successTemplate.cloneNode(true);
+    mainTegElement.appendChild(clonedElement);
+    window.main.addFormElement.reset();
+
+
+    const successPoupElement = document.querySelector('.success');
+
+    document.addEventListener('click', function () {
+      successPoupElement.hidden = true;
+    });
+    document.addEventListener('keydown', function (evt) {
+      evt.preventDefault();
+      if (evt.keyCode === window.keyboard.isEscPressed) {
+        successPoupElement.hidden = true;
+      }
+    });
 
   };
 
   window.poup = {
     closePopupWindow: closePopupWindow,
-    onError: onError
+    onError: onError,
+    getSuccessMessegeAfterSendForm: getSuccessMessegeAfterSendForm
   };
 })();

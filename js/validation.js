@@ -25,12 +25,17 @@
     "3"
   ];
 
-  const pricePostElement = window.pin.pricePostElement;
+  const SETUP_TIME_ROOM = '12:00';
+
+  const pricePostElement = document.querySelector('#price');
 
   const roomNumberElement = document.querySelector('#room_number');
   const capacityElement = document.querySelector('#capacity');
   const titlePostElement = document.querySelector('#title');
   const typePostElement = document.querySelector('#type');
+  const timeinElement = document.querySelector('#timein');
+  const timeoutElement = document.querySelector('#timeout');
+  const descriptionElement = document.querySelector('#description');
 
   const checkNumberIsNumeric = function (value) {
     return /^\d+$/.test(value);
@@ -86,10 +91,24 @@
     pricePostElement.reportValidity();
   };
 
+  const recetAddForm = function () {
+    titlePostElement.value = '';
+    typePostElement.value = 'flat';
+    pricePostElement.value = '';
+    pricePostElement.setAttribute('placeholder', MIN_COSTS_FOR_TYPE_ROOMS["flat"]);
+    timeinElement.value = SETUP_TIME_ROOM;
+    timeoutElement.value = SETUP_TIME_ROOM;
+    roomNumberElement.value = NUMBER_OF_ROOMS[0];
+    capacityElement.value = NUMBER_CAPACITY[3];
+    descriptionElement.value = '';
+  };
+
   window.validation = {
     minCostsForTypeRooms: MIN_COSTS_FOR_TYPE_ROOMS,
+    pricePostElement: pricePostElement,
     validateCapacity: validateCapacity,
     validateTitle: validateTitle,
-    validatePrice: validatePrice
+    validatePrice: validatePrice,
+    recetAddForm: recetAddForm
   };
 })();

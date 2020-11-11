@@ -12,17 +12,20 @@
   const timeInElement = document.querySelector('#timein');
   const timeOutElement = document.querySelector('#timeout');
   const imagesElement = document.querySelector('#images');
-  const pricePostElement = document.querySelector('#price');
+  const pricePostElement = window.validation.pricePostElement;
 
-  const onSucces = function (posts) {
+  const onSuccess = function (posts) {
+
     window.settings.defaultSettings();
 
     mapPinMainElement.addEventListener('click', function () {
+
       window.settings.startSettings();
       window.pin.createDomItem(posts, pinTemplates, mapOverlayElement);
     });
 
     mapPinMainElement.addEventListener('keydown', function (evt) {
+
       if (evt.keyCode === window.keyboard.isEnterPressed) {
         window.settings.startSettings();
         window.pin.createDomItem(posts, pinTemplates, mapOverlayElement);
@@ -30,6 +33,7 @@
     });
 
     mapOverlayElement.addEventListener('click', function (evt) {
+
       if (evt.target.matches('img')) {
         const imgElement = evt.target;
         const pinLocationX = evt.target.parentElement.offsetLeft - imgElement.clientWidth;
@@ -46,6 +50,7 @@
     });
 
     mapOverlayElement.addEventListener('keydown', function (evt) {
+
       if (evt.keyCode === window.keyboard.isEnterPressed) {
         const imgElement = evt.target.querySelector('img');
         const pinLocationX = evt.target.offsetLeft - imgElement.clientWidth;
@@ -63,9 +68,10 @@
 
   };
 
-  window.loading.load("https://21.javascript.pages.academy/keksobooking/data", onSucces, window.poup.onError);
+  window.loading.getConnection(onSuccess, window.poup.onError);
 
   addFormElement.addEventListener('click', function (evt) {
+
     if (evt.target.matches('#capacity')) {
       window.validation.validateCapacity();
     }
@@ -96,8 +102,21 @@
     }
   });
 
+
+  addFormElement.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.loading.getConnection(window.poup.getSuccessMessegeAfterSendForm, window.poup.onError, new FormData(addFormElement));
+  });
+
+  addFormElement.addEventListener('reset', function (evt) {
+    evt.preventDefault();
+    window.validation.recetAddForm();
+  });
+
   window.main = {
     mapPinMainElement: mapPinMainElement,
-    mapOverlayElement: mapOverlayElement
+    mapOverlayElement: mapOverlayElement,
+    addFormElement: addFormElement,
+    onSuccess: onSuccess
   };
 })();

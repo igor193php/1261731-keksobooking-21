@@ -1,6 +1,7 @@
 "use strict";
 (function () {
 
+  const mapElement = document.querySelector('.map');
   const mapFiltersElement = document.querySelector('.map__filters');
   const listMapFiltersElements = mapFiltersElement.querySelectorAll('.map__filter, .map__features');
   const addFormElement = document.querySelector('.ad-form');
@@ -16,11 +17,20 @@
       palace: 10000
     };
 
+    const pinElements = document.querySelectorAll('.map__pin');
     const mapPinMainElement = document.querySelector('.map__pin--main');
     const pricePostElement = document.querySelector('#price');
     const typePostElement = document.querySelector('#type');
 
     pricePostElement.setAttribute('placeholder', MIN_COSTS_FOR_TYPE_ROOMS[typePostElement.value]);
+
+    mapElement.classList.add('map--faded');
+
+    pinElements.forEach(function (value) {
+      value.setAttribute('hidden', 'hidden');
+    });
+
+    mapPinMainElement.removeAttribute('hidden');
 
     listMapFiltersElements.forEach(function (value) {
       value.setAttribute('disabled', 'disabled');
@@ -36,11 +46,9 @@
 
   const actionDefaultForStart = function () {
 
-    const mapElement = document.querySelector('.map');
-
     addFormElement.classList.remove('ad-form--disabled');
     mapElement.classList.remove('map--faded');
-    adressElement.setAttribute('disabled', 'disabled');
+    adressElement.setAttribute('readonly', 'readonly');
 
     listMapFiltersElements.forEach(function (value) {
       value.removeAttribute('disabled');

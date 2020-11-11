@@ -41,7 +41,7 @@
   };
 
   const getSuccessMessegeAfterSendForm = function () {
-    window.loading.load("https://21.javascript.pages.academy/keksobooking/data", window.main.onSuccess, window.poup.onError);
+    window.loading.load(window.main.urlData, window.main.onSuccess, window.poup.onError);
 
     const mainTegElement = document.querySelector('main');
     const successTemplate = window.template.getTemplate('#success', '.success');

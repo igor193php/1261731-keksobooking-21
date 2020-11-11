@@ -2,6 +2,8 @@
 
 (function () {
 
+  const URL_DATA = "https://21.javascript.pages.academy/keksobooking/data";
+
   const mapPinMainElement = document.querySelector('.map__pin--main');
   const mapOverlayElement = document.querySelector('.map__pins');
   const pinTemplates = window.template.getTemplate('#pin', '.map__pin');
@@ -70,7 +72,7 @@
   };
 
 
-  window.loading.load("https://21.javascript.pages.academy/keksobooking/data", onSuccess, window.poup.onError);
+  window.loading.load(URL_DATA, onSuccess, window.poup.onError);
 
   addFormElement.addEventListener('click', function (evt) {
 
@@ -116,6 +118,7 @@
   });
 
   window.main = {
+    urlData: URL_DATA,
     mapPinMainElement: mapPinMainElement,
     mapOverlayElement: mapOverlayElement,
     addFormElement: addFormElement,

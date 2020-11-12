@@ -15,13 +15,34 @@
   const pricePostElement = window.validation.pricePostElement;
   const mapFiltersElement = document.querySelector('.map__filters');
   const filterHousTypeElement = document.querySelector('#housing-type');
+  const filterPriceElement = document.querySelector('#housing-price');
+  const filterRoomsElement = document.querySelector('#housing-rooms');
+  const filterGuestsElement = document.querySelector('#housing-guests');
+
+  let valueFilter = {};
+
+  /*let valueFilter = {
+    "housing-type": '',
+    "housing-price": '',
+    "housing-rooms": '',
+    "housing-guests": ''
+  }; */
+
+  let resultFilter = '';
 
   const onSuccess = function (data) {
     const posts = window.render.getLimitPosts(data);
     window.settings.defaultSettings();
+    console.log(data);
 
     mapFiltersElement.addEventListener('change', function (evt) {
       evt.preventDefault();
+
+      if (resultFilter === '') {
+        resultFilter = data;
+      }
+
+      const activPins = document.querySelectorAll('.map__pin');
       const cardPoupElement = document.querySelector('.map__card.popup');
 
       if (cardPoupElement) {
@@ -29,17 +50,33 @@
       }
 
       if (evt.target.matches('#housing-type')) {
-        const filterValue = filterHousTypeElement.value;
-        let postsFilterByTypeRoom = window.render.sortByTypeRoom(filterValue, data);
-        const activPins = document.querySelectorAll('.map__pin');
-        activPins.forEach(function (value) {
-          if (value.classList.length < 2) {
-            value.remove();
-          }
-        });
-        postsFilterByTypeRoom = window.render.getLimitPosts(postsFilterByTypeRoom);
-        window.pin.createDomItem(postsFilterByTypeRoom, pinTemplates, mapOverlayElement);
+        valueFilter["housing-type"] = filterHousTypeElement.value;
+        resultFilter = window.render.getResultFilter(resultFilter, valueFilter);
       }
+
+      if (evt.target.matches('#housing-price')) {
+        valueFilter["housing-price"] = filterPriceElement.value;
+        resultFilter = window.render.getResultFilter(resultFilter, valueFilter);
+      }
+
+      if (evt.target.matches('#housing-rooms')) {
+        valueFilter["housing-rooms"] = filterRoomsElement.value;
+        resultFilter = window.render.getResultFilter(resultFilter, valueFilter);
+      }
+
+      if (evt.target.matches('#housing-guests')) {
+        valueFilter["housing-guests"] = filterGuestsElement.value;
+        resultFilter = window.render.getResultFilter(resultFilter, valueFilter);
+      }
+
+      activPins.forEach(function (value) {
+        if (value.classList.length < 2) {
+          value.remove();
+        }
+      });
+
+      resultFilter = window.render.getLimitPosts(resultFilter);
+      window.pin.createDomItem(resultFilter, pinTemplates, mapOverlayElement);
     });
 
 

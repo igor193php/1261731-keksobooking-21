@@ -8,7 +8,7 @@
   const getResultFilter = function (data, valueFilter) {
     let result = '';
     const typeValue = Object.keys(valueFilter);
-
+    console.log(valueFilter);
     const getPostByPrice = function (value) {
 
       switch (valueFilter[value]) {
@@ -31,6 +31,8 @@
           });
           break;
       }
+
+      result = window.render.getLimitPosts(result);
 
       return result;
     };
@@ -58,6 +60,30 @@
             result = data.filter(function (post) {
               return post.offer.guests === Number(valueFilter[value]);
             });
+            break;
+          case 'filter-wifi':
+
+            result = data.filter(function (post) {
+              for (let i = 0; i < post.offer.features.length; i++) {
+                console.log(post.offer.features[i]);
+                console.log(valueFilter[value]);
+                return post.offer.features[i] === valueFilter[value];
+
+              }
+
+            });
+            console.log(result);
+
+            break;
+          case 'filter-dishwasher':
+            break;
+          case 'filter-parking':
+            break;
+          case 'filter-washer':
+            break;
+          case 'filter-elevator':
+            break;
+          case 'filter-conditioner':
             break;
         }
 

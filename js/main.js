@@ -14,21 +14,47 @@
   const imagesElement = document.querySelector('#images');
   const pricePostElement = window.validation.pricePostElement;
   const mapFiltersElement = document.querySelector('.map__filters');
+
   const filterHousTypeElement = document.querySelector('#housing-type');
   const filterPriceElement = document.querySelector('#housing-price');
   const filterRoomsElement = document.querySelector('#housing-rooms');
   const filterGuestsElement = document.querySelector('#housing-guests');
+  const filterWifiElement = document.querySelectorAll('#filter-wifi');
+  const filterDishwasherElement = document.querySelectorAll('#filter-dishwasher');
+  const filterParkingElement = document.querySelectorAll('#filter-parking');
+  const filterWasherElement = document.querySelectorAll('#filter-washer');
+  const filterElevatorElement = document.querySelectorAll('#filter-elevator');
+  const filterConditionerElement = document.querySelectorAll('#filter-conditioner');
+
+  const typeMatches = [
+    'housing-type',
+    'housing-price',
+    'housing-rooms',
+    'housing-guests',
+    'filter-wifi',
+    'filter-dishwasher',
+    'filter-parking',
+    'filter-washer',
+    'filter-elevator',
+    'filter-conditioner'
+  ];
+
+  const filterDomElemnts = {
+    'housing-type': filterHousTypeElement,
+    'housing-price': filterPriceElement,
+    'housing-rooms': filterRoomsElement,
+    'housing-guests': filterGuestsElement,
+    'filter-wifi': filterWifiElement,
+    'filter-dishwasher': filterDishwasherElement,
+    'filter-parking': filterParkingElement,
+    'filter-washer': filterWasherElement,
+    'filter-elevator': filterElevatorElement,
+    'filter-conditioner': filterConditionerElement
+  };
 
   let valueFilter = {};
-
-  /*let valueFilter = {
-    "housing-type": '',
-    "housing-price": '',
-    "housing-rooms": '',
-    "housing-guests": ''
-  }; */
-
   let resultFilter = '';
+  let lastTimeout = '';
 
   const onSuccess = function (data) {
     const posts = window.render.getLimitPosts(data);
@@ -45,38 +71,28 @@
       const activPins = document.querySelectorAll('.map__pin');
       const cardPoupElement = document.querySelector('.map__card.popup');
 
-      if (cardPoupElement) {
-        document.querySelector('.map__card.popup').hidden = true;
-      }
-
-      if (evt.target.matches('#housing-type')) {
-        valueFilter["housing-type"] = filterHousTypeElement.value;
-        resultFilter = window.render.getResultFilter(resultFilter, valueFilter);
-      }
-
-      if (evt.target.matches('#housing-price')) {
-        valueFilter["housing-price"] = filterPriceElement.value;
-        resultFilter = window.render.getResultFilter(resultFilter, valueFilter);
-      }
-
-      if (evt.target.matches('#housing-rooms')) {
-        valueFilter["housing-rooms"] = filterRoomsElement.value;
-        resultFilter = window.render.getResultFilter(resultFilter, valueFilter);
-      }
-
-      if (evt.target.matches('#housing-guests')) {
-        valueFilter["housing-guests"] = filterGuestsElement.value;
-        resultFilter = window.render.getResultFilter(resultFilter, valueFilter);
-      }
-
       activPins.forEach(function (value) {
         if (value.classList.length < 2) {
           value.remove();
         }
       });
 
-      resultFilter = window.render.getLimitPosts(resultFilter);
+      if (cardPoupElement) {
+        document.querySelector('.map__card.popup').hidden = true;
+      }
       window.pin.createDomItem(resultFilter, pinTemplates, mapOverlayElement);
+      typeMatches.forEach(function (typeMatch) {
+        if (evt.target.matches('#' + typeMatch)) {
+          valueFilter[typeMatch] = filterDomElemnts[typeMatch].value;
+          resultFilter = window.debounce.debounce(window.render.getResultFilter, data, valueFilter);
+          //resultFilter = window.render.getResultFilter(data, valueFilter);
+        }
+      });
+
+      //resultFilter = window.render.getLimitPosts(resultFilter);
+      //window.pin.createDomItem(resultFilter, pinTemplates, mapOverlayElement);
+
+
     });
 
 
@@ -92,6 +108,7 @@
         window.settings.startSettings();
         window.pin.createDomItem(posts, pinTemplates, mapOverlayElement);
       }
+
     });
 
     mapOverlayElement.addEventListener('click', function (evt) {
@@ -179,6 +196,7 @@
     mapPinMainElement: mapPinMainElement,
     mapOverlayElement: mapOverlayElement,
     addFormElement: addFormElement,
+    pinTemplates: pinTemplates,
     onSuccess: onSuccess
   };
 })();

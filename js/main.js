@@ -1,6 +1,7 @@
 "use strict";
 
 (function () {
+  const LIMIT_CLASES = 2;
 
   const mapPinMainElement = document.querySelector('.map__pin--main');
   const mapOverlayElement = document.querySelector('.map__pins');
@@ -14,33 +15,41 @@
   const imagesElement = document.querySelector('#images');
   const pricePostElement = window.validation.pricePostElement;
   const mapFiltersElement = document.querySelector('.map__filters');
-  const filterHousTypeElement = document.querySelector('#housing-type');
+
+  let resultFilter = '';
 
   const onSuccess = function (data) {
+
     const posts = window.render.getLimitPosts(data);
+
     window.settings.defaultSettings();
 
-    mapFiltersElement.addEventListener('change', function (evt) {
-      evt.preventDefault();
+    const onFormFilterChanged = function () {
+
       const cardPoupElement = document.querySelector('.map__card.popup');
+      const activPins = document.querySelectorAll('.map__pin');
+      const filterState = new FormData(mapFiltersElement);
+
+      activPins.forEach(function (value) {
+        if (value.classList.length < LIMIT_CLASES) {
+          value.remove();
+        }
+      });
 
       if (cardPoupElement) {
         document.querySelector('.map__card.popup').hidden = true;
       }
 
-      if (evt.target.matches('#housing-type')) {
-        const filterValue = filterHousTypeElement.value;
-        let postsFilterByTypeRoom = window.render.sortByTypeRoom(filterValue, data);
-        const activPins = document.querySelectorAll('.map__pin');
-        activPins.forEach(function (value) {
-          if (value.classList.length < 2) {
-            value.remove();
-          }
-        });
-        postsFilterByTypeRoom = window.render.getLimitPosts(postsFilterByTypeRoom);
-        window.pin.createDomItem(postsFilterByTypeRoom, pinTemplates, mapOverlayElement);
-      }
-    });
+      resultFilter = window.render.filterOffers(data, filterState);
+      window.pin.createDomItem(resultFilter, pinTemplates, mapOverlayElement);
+
+    };
+
+    const onFormFilterChangedDebounced = function () {
+      window.debounce.debounce(onFormFilterChanged);
+    };
+
+    mapFiltersElement.addEventListener('change', onFormFilterChangedDebounced);
 
 
     mapPinMainElement.addEventListener('click', function () {
@@ -55,6 +64,7 @@
         window.settings.startSettings();
         window.pin.createDomItem(posts, pinTemplates, mapOverlayElement);
       }
+
     });
 
     mapOverlayElement.addEventListener('click', function (evt) {
@@ -142,6 +152,7 @@
     mapPinMainElement: mapPinMainElement,
     mapOverlayElement: mapOverlayElement,
     addFormElement: addFormElement,
+    pinTemplates: pinTemplates,
     onSuccess: onSuccess
   };
 })();

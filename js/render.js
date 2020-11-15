@@ -1,104 +1,83 @@
 'use strict';
 (function () {
+
+  const PRICE_LOW = 10000;
+  const PRICE_HIGH = 50000;
+
   const getLimitPosts = function (data) {
     const LIMIT = 5;
     return data.slice(0, LIMIT);
   };
 
-  const getResultFilter = function (data, valueFilter) {
-    let result = '';
-    const typeValue = Object.keys(valueFilter);
-    console.log(valueFilter);
-    const getPostByPrice = function (value) {
+  const validateValuePriceFilter = function (value, price) {
+    let isEqual = false;
 
-      switch (valueFilter[value]) {
-        case 'any':
-          result = data;
-          break;
-        case 'middle':
-          result = data.filter(function (post) {
-            return post.offer.price > 10000 && post.offer.price < 50000;
-          });
-          break;
-        case 'low':
-          result = data.filter(function (post) {
-            return post.offer.price < 10000;
-          });
-          break;
-        case 'high':
-          result = data.filter(function (post) {
-            return post.offer.price > 50000;
-          });
-          break;
+    switch (value) {
+
+      case 'middle':
+        if (price >= PRICE_LOW && price <= PRICE_HIGH) {
+          isEqual = true;
+        }
+        break;
+
+      case 'low':
+        if (price < PRICE_LOW) {
+          isEqual = true;
+        }
+        break;
+
+      case 'high':
+        if (price > PRICE_HIGH) {
+          isEqual = false;
+        }
+        break;
+    }
+
+    return isEqual;
+  };
+
+  const isEqualFilter = function (offer, filterState) {
+    let isEqual = true;
+
+    for (let [name, value] of filterState) {
+
+      if (name === 'housing-type' && value !== 'any' && offer.offer.type !== value) {
+        isEqual = false;
       }
 
-      result = window.render.getLimitPosts(result);
+      if (name === 'housing-price' && value !== 'any') {
+        isEqual = validateValuePriceFilter(value, offer.offer.price);
+      }
 
-      return result;
-    };
+      if (name === 'housing-rooms' && value !== 'any' && offer.offer.rooms !== Number(value)) {
+        isEqual = false;
+      }
 
+      if (name === 'housing-guests' && value !== 'any' && offer.offer.guests !== Number(value)) {
+        isEqual = false;
+      }
 
-    typeValue.forEach(function (value) {
-
-      if (valueFilter[value] !== 'any') {
-
-        switch (value) {
-          case 'housing-type':
-            result = data.filter(function (post) {
-              return post.offer.type === valueFilter[value];
-            });
-            break;
-          case 'housing-price':
-            getPostByPrice(value);
-            break;
-          case 'housing-rooms':
-            result = data.filter(function (post) {
-              return post.offer.rooms === Number(valueFilter[value]);
-            });
-            break;
-          case 'housing-guests':
-            result = data.filter(function (post) {
-              return post.offer.guests === Number(valueFilter[value]);
-            });
-            break;
-          case 'filter-wifi':
-
-            result = data.filter(function (post) {
-              for (let i = 0; i < post.offer.features.length; i++) {
-                console.log(post.offer.features[i]);
-                console.log(valueFilter[value]);
-                return post.offer.features[i] === valueFilter[value];
-
-              }
-
-            });
-            console.log(result);
-
-            break;
-          case 'filter-dishwasher':
-            break;
-          case 'filter-parking':
-            break;
-          case 'filter-washer':
-            break;
-          case 'filter-elevator':
-            break;
-          case 'filter-conditioner':
-            break;
+      if (name === 'features' && value !== 'any') {
+        if (!offer.offer.features.includes(value)) {
+          isEqual = false;
         }
 
-      } else {
-        result = data;
       }
 
-    });
+    }
 
-    return result;
-
+    return isEqual;
   };
+
+  const filterOffers = function (offers, filterState) {
+    return offers.filter(function (offer) {
+      return isEqualFilter(offer, filterState);
+    });
+  };
+
 
   window.render = {
     getLimitPosts: getLimitPosts,
-    getResultFilter: getResultFilter
+    filterOffers: filterOffers
   };
 })();

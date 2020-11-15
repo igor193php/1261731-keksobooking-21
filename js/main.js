@@ -1,6 +1,7 @@
 "use strict";
 
 (function () {
+  const LIMIT_CLASES = 2;
 
   const mapPinMainElement = document.querySelector('.map__pin--main');
   const mapOverlayElement = document.querySelector('.map__pins');
@@ -15,64 +16,22 @@
   const pricePostElement = window.validation.pricePostElement;
   const mapFiltersElement = document.querySelector('.map__filters');
 
-  const filterHousTypeElement = document.querySelector('#housing-type');
-  const filterPriceElement = document.querySelector('#housing-price');
-  const filterRoomsElement = document.querySelector('#housing-rooms');
-  const filterGuestsElement = document.querySelector('#housing-guests');
-  const filterWifiElement = document.querySelectorAll('#filter-wifi');
-  const filterDishwasherElement = document.querySelectorAll('#filter-dishwasher');
-  const filterParkingElement = document.querySelectorAll('#filter-parking');
-  const filterWasherElement = document.querySelectorAll('#filter-washer');
-  const filterElevatorElement = document.querySelectorAll('#filter-elevator');
-  const filterConditionerElement = document.querySelectorAll('#filter-conditioner');
-
-  const typeMatches = [
-    'housing-type',
-    'housing-price',
-    'housing-rooms',
-    'housing-guests',
-    'filter-wifi',
-    'filter-dishwasher',
-    'filter-parking',
-    'filter-washer',
-    'filter-elevator',
-    'filter-conditioner'
-  ];
-
-  const filterDomElemnts = {
-    'housing-type': filterHousTypeElement,
-    'housing-price': filterPriceElement,
-    'housing-rooms': filterRoomsElement,
-    'housing-guests': filterGuestsElement,
-    'filter-wifi': filterWifiElement,
-    'filter-dishwasher': filterDishwasherElement,
-    'filter-parking': filterParkingElement,
-    'filter-washer': filterWasherElement,
-    'filter-elevator': filterElevatorElement,
-    'filter-conditioner': filterConditionerElement
-  };
-
-  let valueFilter = {};
   let resultFilter = '';
-  let lastTimeout = '';
 
   const onSuccess = function (data) {
+
     const posts = window.render.getLimitPosts(data);
+
     window.settings.defaultSettings();
-    console.log(data);
 
-    mapFiltersElement.addEventListener('change', function (evt) {
-      evt.preventDefault();
+    const onFormFilterChanged = function () {
 
-      if (resultFilter === '') {
-        resultFilter = data;
-      }
-
-      const activPins = document.querySelectorAll('.map__pin');
       const cardPoupElement = document.querySelector('.map__card.popup');
+      const activPins = document.querySelectorAll('.map__pin');
+      const filterState = new FormData(mapFiltersElement);
 
       activPins.forEach(function (value) {
-        if (value.classList.length < 2) {
+        if (value.classList.length < LIMIT_CLASES) {
           value.remove();
         }
       });
@@ -80,20 +39,17 @@
       if (cardPoupElement) {
         document.querySelector('.map__card.popup').hidden = true;
       }
+
+      resultFilter = window.render.filterOffers(data, filterState);
       window.pin.createDomItem(resultFilter, pinTemplates, mapOverlayElement);
-      typeMatches.forEach(function (typeMatch) {
-        if (evt.target.matches('#' + typeMatch)) {
-          valueFilter[typeMatch] = filterDomElemnts[typeMatch].value;
-          resultFilter = window.debounce.debounce(window.render.getResultFilter, data, valueFilter);
-          //resultFilter = window.render.getResultFilter(data, valueFilter);
-        }
-      });
 
-      //resultFilter = window.render.getLimitPosts(resultFilter);
-      //window.pin.createDomItem(resultFilter, pinTemplates, mapOverlayElement);
+    };
 
+    const onFormFilterChangedDebounced = function () {
+      window.debounce.debounce(onFormFilterChanged);
+    };
 
-    });
+    mapFiltersElement.addEventListener('change', onFormFilterChangedDebounced);
 
 
     mapPinMainElement.addEventListener('click', function () {

@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  const DEEOUNCE_INTERVAL = 3000;
+  const DEEOUNCE_INTERVAL = 500;
 
   const debounce = function (cb, ...parameters) {
 
